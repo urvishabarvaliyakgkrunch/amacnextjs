@@ -20,15 +20,21 @@ function LogoRow({ ariaHidden = false }: { ariaHidden?: boolean }) {
   );
 }
 
-export default function OurSuppliers() {
+type OurSuppliersProps = {
+  title?: string;
+  subtitle?: string;
+};
+
+export default function OurSuppliers({
+  title = "Brands We Work With",
+  subtitle = "We stock trusted names and match the product to your ground.",
+}: OurSuppliersProps) {
   return (
     <section className="bg-white py-10 md:py-[60px] lg:py-[105px]">
       <div className="px-4 text-center sm:px-6">
         <SectionEyebrow label="Our Suppliers" uppercase />
-        <h2>Brands We Work With</h2>
-        <p className="mx-auto mt-3 max-w-[560px] text-[color:var(--color-muted)]">
-          We stock trusted names and match the product to your ground.
-        </p>
+        <h2>{title}</h2>
+        <p className="mx-auto mt-3 max-w-[560px] text-[color:var(--color-muted)]">{subtitle}</p>
       </div>
 
       {/* full-bleed infinite marquee — matches amac.ie edge-to-edge logo strip */}
