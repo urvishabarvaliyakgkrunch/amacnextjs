@@ -22,14 +22,14 @@ export default function ProductsPage() {
         image="https://amac.ie/wp-content/uploads/2026/08/Field-1.webp"
       />
 
-      <section className="py-10 md:pt-[110px] md:pb-[110px]">
+      <section className="py-10 md:py-[60px] lg:pt-[110px] lg:pb-[110px]">
         <div className="mx-auto max-w-[1680px] px-4 sm:px-6 lg:px-0">
           <div className="text-center md:mb-[58px]">
             <SectionEyebrow label="Products & Services" />
             <h2>Fertiliser &amp; Soil Nutrition</h2>
           </div>
 
-          <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 md:mt-0 xl:grid-cols-4">
+          <div className="mt-10 grid grid-cols-1 gap-5 md:mt-0 md:grid-cols-2 xl:grid-cols-4">
             {PRODUCTS.map((product) => (
               <ProductCard key={product.href} {...product} />
             ))}
