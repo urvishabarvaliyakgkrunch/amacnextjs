@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "amac.ie",
+        pathname: "/wp-content/uploads/**",
       },
     ],
   },

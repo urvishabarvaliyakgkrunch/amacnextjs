@@ -1,45 +1,43 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-
-  /* Design tokens measured from https://amac.ie (Elementor/Enfold) — see AGENTS.md G0-G1 */
-  --color-primary: #466b20; /* brand green — top bar, links, accents */
-  --color-primary-alt: #36741b; /* button fill / hover */
-  --color-primary-dark: #2d6e11; /* darker button / badge green */
-  --color-ink: #333333; /* body text */
-  --color-ink-dark: #111111; /* headings */
-  --color-muted: #666666; /* secondary text */
-  --color-white: #ffffff;
-  --color-bg-alt: #f6f6f6; /* alternating section background */
+/* Tokens measured from the live Elementor kit (post-18) + header/footer CSS — see AGENTS.md G0/G1 */
+@theme static {
+  --color-primary: #466b20; /* kit primary: top bar, hover/current accents */
+  --color-secondary: #22282b; /* kit secondary: headings */
+  --color-accent: #36741b; /* kit accent: filled buttons */
+  --color-ink: #767676; /* kit text */
+  --color-ink-dark: #1a1a1a;
+  --color-topbar-line: #60a5fa26; /* 1px line under the green top bar */
+  --color-nav-ink: #0f172a; /* scrolled-header nav text */
+  --color-nav-pill: #292929; /* dark pill behind the top-state nav */
+  --color-bg-alt: #fafafa; /* kit background */
   --color-border: #76767680;
-  --color-footer: #03340f; /* footer dark green background */
-  --color-footer-alt: #00280a; /* footer darkest green panel */
+  --color-lime: #8bc63f; /* footer heading underline */
+  --color-icon-green: #009a27; /* footer contact icon circle */
+  --color-footer: #03340f; /* footer contact card */
+  --color-footer-alt: #00280a; /* footer base + overlay */
+  --color-footer-muted: #c8d4cb; /* footer blurb text */
+  --color-footer-text: #f6f6f6;
+  --color-btn-mid: #c2cdbd; /* middle stop of the white radial-gradient buttons */
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --font-sans: var(--font-mulish);
   --font-heading: var(--font-manrope);
+  --font-menu: var(--font-inter);
+}
 
-  --color-primary: var(--color-primary);
-  --color-primary-alt: var(--color-primary-alt);
-  --color-primary-dark: var(--color-primary-dark);
-  --color-ink: var(--color-ink);
-  --color-ink-dark: var(--color-ink-dark);
-  --color-muted: var(--color-muted);
-  --color-bg-alt: var(--color-bg-alt);
-  --color-border: var(--color-border);
-  --color-footer: var(--color-footer);
-  --color-footer-alt: var(--color-footer-alt);
+:root {
+  --background: #fafafa;
+  --foreground: #171717;
 }
 
 body {
   background: var(--background);
   color: var(--color-ink);
   font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.65; /* Enfold theme body line-height, measured live */
 }
 
 h1, h2, h3, h4, h5, h6 {

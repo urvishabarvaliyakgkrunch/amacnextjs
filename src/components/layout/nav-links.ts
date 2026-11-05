@@ -5,7 +5,20 @@ export type NavLink = {
   children?: { label: string; href: string }[];
 };
 
-// Hardcoded per AGENTS.md H6 — matches live amac.ie menu structure/slugs exactly
+export const LOGO_URL = "https://amac.ie/wp-content/uploads/2026/05/AMAC-logo-640.webp";
+
+export const SITE = {
+  address: "AMAC Farm Supplies, Townspark, Midleton, Co. Cork, P25 P640",
+  shortAddress: "Townspark, Midleton, Co. Cork, P25 P640",
+  phone: "021-4630683",
+  phoneFooter: "021 4630683",
+  phoneHref: "tel:021-4630683",
+  email: "info@amac.ie",
+  blurb:
+    "Farm supplies, feed and practical advice from our team in Midleton. Serving East Cork and surrounding areas since 2006.",
+};
+
+// Hardcoded per AGENTS.md H6 — matches the live amac.ie menu structure and slugs
 export const NAV_LINKS: NavLink[] = [
   { label: "Home", href: "/" },
   {
@@ -37,21 +50,29 @@ export const NAV_LINKS: NavLink[] = [
   { label: "Contact", href: "/contact" },
 ];
 
-export const FOOTER_QUICK_LINKS = [
-  { label: "Home", href: "/" },
-  { label: "About AMAC", href: "/about-us" },
-  { label: "Farm Supplies & Services", href: "/products" },
-  { label: "Brands We Stock", href: "/suppliers" },
-  { label: "News & Advice", href: "/blogs" },
-  { label: "Contact", href: "/contact" },
+export const FOOTER_COLUMNS = [
+  {
+    title: "Quick Links",
+    links: [
+      { label: "Home", href: "/" },
+      { label: "About AMAC", href: "/about-us" },
+      { label: "Farm Supplies & Services", href: "/products" },
+      { label: "Brands We Stock", href: "/suppliers" },
+      { label: "News & Advice", href: "/blogs" },
+      { label: "Contact", href: "/contact" },
+    ],
+  },
+  {
+    title: "Products",
+    links: NAV_LINKS[2].children!,
+  },
+  {
+    title: "News & Advice",
+    links: [{ label: "Harvest 2026", href: "/harvest-2026-east-cork-crop-grain-update" }],
+  },
 ];
 
-export const FOOTER_PRODUCT_LINKS = [
-  { label: "Fertiliser & Soil Nutrition", href: "/fertiliser-soil-nutrition" },
-  { label: "Agronomy & Technical Advice", href: "/agronomy-technical-advice" },
-  { label: "Animal Feed", href: "/animal-feed" },
-  { label: "Silage Wrap & Bale Netting", href: "/silage-bale-plastic-netting" },
-  { label: "Solid Fuel Depot", href: "/solid-fuel-depot" },
+export const FOOTER_LEGAL_LINKS = [
+  { label: "Terms & Conditions", href: "/terms-conditions" },
+  { label: "Privacy Policy", href: "/privacy-policy" },
 ];
-
-export const FOOTER_NEWS_LINKS = [{ label: "Harvest 2026", href: "/harvest-2026-east-cork-crop-grain-update" }];
