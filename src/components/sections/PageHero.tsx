@@ -20,9 +20,9 @@ export default function PageHero({ title, subtitle, image, solidOverlay, link, t
   return (
     <section
       className={`relative flex min-h-[400px] items-center justify-center overflow-hidden ${
-        post ? "max-md:items-start" : "pt-[70px] pb-[50px] md:py-0"
+        post ? "items-center" : "pt-[70px] pb-[50px] md:py-0"
       } ${
-        tall ? "lg:min-h-[570px] lg:pt-[140px]" : "lg:min-h-[490px]"
+        tall ? "lg:min-h-[570px] lg:pt-[140px]" : post ? "min-[1025px]:min-h-[490px]" : "lg:min-h-[490px]"
       }`}
     >
       <Image
@@ -42,7 +42,7 @@ export default function PageHero({ title, subtitle, image, solidOverlay, link, t
         }
       />
       <div className={`relative mx-auto flex max-w-[1680px] flex-col items-center px-4 pt-[118px] pb-0 text-center sm:px-6 md:pb-[50px] lg:px-20 ${tall ? "lg:py-0" : ""} ${post ? "max-md:pt-[120px]" : ""}`}>
-        <h1 className={`text-white ${post ? "text-[40px] leading-[50px] min-[1367px]:text-[58px] min-[1367px]:leading-[63.8px]" : "text-[34px] md:text-[40px]"}`}>{title}</h1>
+        <h1 className={`text-white ${post ? "text-[34px] leading-[38px] min-[768px]:max-[1200px]:text-[50px] min-[768px]:max-[1200px]:leading-[55px] min-[1201px]:text-[58px] min-[1201px]:leading-[63.8px]" : "text-[34px] md:text-[40px]"}`}>{title}</h1>
         {subtitle ? (
           <div className="mt-[33px] flex max-w-[700px] flex-col gap-[13.6px] font-semibold leading-[26.4px] text-white">
             {(Array.isArray(subtitle) ? subtitle : [subtitle]).map((line) => (

@@ -2,33 +2,41 @@
 import { SIDE_PADDING } from "@/components/layout/layout-classes";
 import type { ArticleBlock } from "./harvest-2026-data";
 
-// Large (>=1367px) offsets measured vs live at 1920; smaller screens use live's 14px/30px type (em-based 0.85 / 1.5 margins)
+// Live tiers: <=767 (p 14px, h2 30px), 768-1024 (p 16px, h2 38px), >=1025 (p 16px, h2 45px). Offsets measured vs live.
 function headingTop(blocks: ArticleBlock[], i: number) {
   const prev = blocks[i - 1];
-  if (i === 2) return "mt-[55px] min-[1367px]:mt-[77.5px]";
-  return prev.type === "p" && prev.image ? "mt-[65px] min-[1367px]:mt-[53.5px]" : "mt-[10px] clear-both";
+  if (i === 2) return "max-[767px]:mt-[55px] min-[768px]:max-[1024px]:mt-[67px] min-[1025px]:mt-[77.5px]";
+  return prev.type === "p" && prev.image
+    ? "max-[767px]:mt-[30px] min-[768px]:max-[799px]:mt-[77px] min-[800px]:max-[1024px]:mt-[44px] min-[1025px]:mt-[53.5px]"
+    : "mt-[10px] clear-both";
+}
+
+function imageGap(i: number) {
+  return i === 1
+    ? "max-[767px]:mt-[21.9px] min-[768px]:max-[1024px]:mt-[23.6px] min-[1025px]:mt-[23.6px]"
+    : "max-[767px]:mt-[31.9px] min-[768px]:max-[1024px]:mt-[33.6px] min-[1025px]:max-[1200px]:mt-[38.6px] min-[1201px]:mt-[23.6px]";
 }
 
 // Live (amac.ie) puts each image in its own right-floated <p> before a heading
 export default function ArticleBody({ blocks }: { blocks: ArticleBlock[] }) {
   return (
-    <section className={`bg-white pt-10 pb-[59px] min-[768px]:pt-[60px] min-[768px]:pb-[60px] min-[1367px]:pt-20 min-[1367px]:pb-[121px] ${SIDE_PADDING}`}>
+    <section className={`bg-white pt-10 pb-[59px] min-[768px]:pt-[60px] min-[768px]:pb-20 min-[1025px]:pt-20 min-[1025px]:pb-[121px] ${SIDE_PADDING}`}>
       <div className="mx-auto w-full max-w-[1250px]">
         {blocks.map((b, i) =>
           b.type === "h2" ? (
             <h2
               key={i}
-              className={`${headingTop(blocks, i)} mb-[10px] text-[30px] leading-[35px] font-bold text-secondary min-[1367px]:text-[45px] min-[1367px]:leading-[54px]`}
+              className={`${headingTop(blocks, i)} mb-[10px] font-bold text-secondary max-[767px]:text-[30px] max-[767px]:leading-[35px] min-[768px]:max-[1024px]:text-[38px] min-[768px]:max-[1024px]:leading-[45.6px] min-[1025px]:text-[45px] min-[1025px]:leading-[54px]`}
             >
               {b.text}
             </h2>
           ) : (
             <div key={i}>
-              <p className="mt-[11.9px] text-[14px] leading-[23.1px] text-muted min-[1367px]:mt-[13.6px] min-[1367px]:text-[16px] min-[1367px]:leading-[26.4px]">
+              <p className="mt-[11.9px] text-[14px] leading-[23.1px] text-muted min-[768px]:mt-[13.6px] min-[768px]:text-[16px] min-[768px]:leading-[26.4px]">
                 {b.text}
               </p>
               {b.image ? (
-                <p className={`clear-both min-[1367px]:mt-[23.6px] ${i === 1 ? "mt-[21.9px]" : "mt-[31.9px]"}`}>
+                <p className={`clear-both ${imageGap(i)}`}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={b.image.src}
@@ -36,7 +44,7 @@ export default function ArticleBody({ blocks }: { blocks: ArticleBlock[] }) {
                     width={b.image.w}
                     height={400}
                     loading="lazy"
-                    className={`float-right mt-1 ml-[10px] h-auto max-w-full ${i === 13 ? "min-[1367px]:mb-[9px]" : "min-[1367px]:mb-[54px]"}`}
+                    className={`md:float-right w-full md:w-auto md:mb-0 mt-1 md:ml-[10px] h-auto max-w-full ${i === 13 ? "min-[1025px]:mb-[9px]" : "min-[1025px]:mb-[54px]"}`}
                   />
                 </p>
               ) : null}
