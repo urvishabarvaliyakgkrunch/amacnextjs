@@ -3,24 +3,45 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* Design tokens measured from https://amac.ie (Elementor/Enfold) — see AGENTS.md G0-G1 */
+  --color-primary: #466b20; /* brand green — top bar, links, accents */
+  --color-primary-alt: #36741b; /* button fill / hover */
+  --color-primary-dark: #2d6e11; /* darker button / badge green */
+  --color-ink: #333333; /* body text */
+  --color-ink-dark: #111111; /* headings */
+  --color-muted: #666666; /* secondary text */
+  --color-white: #ffffff;
+  --color-bg-alt: #f6f6f6; /* alternating section background */
+  --color-border: #76767680;
+  --color-footer: #03340f; /* footer dark green background */
+  --color-footer-alt: #00280a; /* footer darkest green panel */
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --font-sans: var(--font-mulish);
+  --font-heading: var(--font-manrope);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-primary: var(--color-primary);
+  --color-primary-alt: var(--color-primary-alt);
+  --color-primary-dark: var(--color-primary-dark);
+  --color-ink: var(--color-ink);
+  --color-ink-dark: var(--color-ink-dark);
+  --color-muted: var(--color-muted);
+  --color-bg-alt: var(--color-bg-alt);
+  --color-border: var(--color-border);
+  --color-footer: var(--color-footer);
+  --color-footer-alt: var(--color-footer-alt);
 }
 
 body {
   background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
 }
