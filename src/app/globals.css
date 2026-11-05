@@ -4,16 +4,17 @@
   --background: #ffffff;
   --foreground: #171717;
 
-  /* Design tokens measured from https://amac.ie (Elementor/Enfold) — see AGENTS.md G0-G1 */
-  --color-primary: #466b20; /* brand green — top bar, links, accents */
-  --color-primary-alt: #36741b; /* button fill / hover */
-  --color-primary-dark: #2d6e11; /* darker button / badge green */
+  /* Design tokens — measured from amac.ie Elementor kit (.elementor-kit-18), exact values */
+  --color-primary: #466b20; /* e-global-color-primary — top bar, hero overlay, headings */
+  --color-primary-alt: #36741b; /* same as accent, used for hover states */
+  --color-accent: #36741b; /* e-global-color-accent — buttons, "Learn more" links */
+  --color-secondary: #22282b; /* e-global-color-secondary — h1/h2/h3 headings */
   --color-ink: #333333; /* body text */
-  --color-ink-dark: #111111; /* headings */
-  --color-muted: #666666; /* secondary text */
+  --color-ink-dark: #22282b; /* headings — same as secondary */
+  --color-muted: #767676; /* e-global-color-text — paragraph/secondary text */
   --color-white: #ffffff;
-  --color-bg-alt: #f6f6f6; /* alternating section background */
-  --color-border: #76767680;
+  --color-bg-alt: #f8f7f3; /* card background (product cards) */
+  --color-border: #e3e3e3; /* card border */
   --color-footer: #03340f; /* footer dark green background */
   --color-footer-alt: #00280a; /* footer darkest green panel */
 }
@@ -26,7 +27,8 @@
 
   --color-primary: var(--color-primary);
   --color-primary-alt: var(--color-primary-alt);
-  --color-primary-dark: var(--color-primary-dark);
+  --color-accent: var(--color-accent);
+  --color-secondary: var(--color-secondary);
   --color-ink: var(--color-ink);
   --color-ink-dark: var(--color-ink-dark);
   --color-muted: var(--color-muted);
@@ -36,12 +38,29 @@
   --color-footer-alt: var(--color-footer-alt);
 }
 
-body {
-  background: var(--background);
-  color: var(--color-ink);
-  font-family: var(--font-sans);
-}
+@layer base {
+  body {
+    background: var(--background);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+  }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading);
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    color: var(--color-secondary);
+  }
+
+  /* Kit defaults — .elementor-kit-18 h1/h2, override per-component only when the live page does */
+  h1 {
+    font-size: 58px;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+  }
+
+  h2 {
+    font-size: 45px;
+    font-weight: 700;
+    line-height: 54px;
+  }
 }
