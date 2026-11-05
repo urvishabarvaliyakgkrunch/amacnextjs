@@ -3,7 +3,7 @@ import Image from "next/image";
 
 type PageHeroProps = {
   title: string;
-  subtitle?: string;
+  subtitle?: string | string[];
   image: string;
 };
 
@@ -29,9 +29,11 @@ export default function PageHero({ title, subtitle, image }: PageHeroProps) {
       <div className="relative mx-auto flex max-w-[1680px] flex-col items-center px-4 pt-[90px] pb-0 text-center sm:px-6 md:pb-[50px] lg:px-20">
         <h1 className="text-white">{title}</h1>
         {subtitle ? (
-          <p className="mt-4 max-w-[700px] text-sm font-semibold text-white md:text-base">
-            {subtitle}
-          </p>
+          <div className="mt-4 max-w-[700px] space-y-4 font-semibold text-white">
+            {(Array.isArray(subtitle) ? subtitle : [subtitle]).map((line) => (
+              <p key={line}>{line}</p>
+            ))}
+          </div>
         ) : null}
       </div>
     </section>

@@ -31,13 +31,15 @@ export default function DesktopNav({ links, variant }: DesktopNavProps) {
           ? `px-6 hover:bg-white hover:text-black group-hover:bg-white group-hover:text-black ${
               current ? "bg-white text-black" : "text-white"
             }`
-          : `px-3 hover:text-primary group-hover:text-primary ${current ? "text-primary" : "text-nav-ink"}`;
+          : `px-2 min-[1201px]:px-2.5 min-[1367px]:px-[15px] group-hover:text-primary ${current ? "text-primary" : "text-nav-ink"}`;
+        // Sticky-bar links are 46px tall (15px padding around a 16px line); the pill's are 40px
+        const sizeClass = isPill ? "py-2 leading-6" : "py-[15px] leading-4";
 
         return (
           <div key={link.label} className="group relative">
             <Link
               href={link.href}
-              className={`flex items-center gap-2.5 rounded-full py-2 text-base leading-6 transition-colors duration-300 ${stateClass}`}
+              className={`flex items-center gap-2.5 rounded-full text-base transition-colors duration-300 ${sizeClass} ${stateClass}`}
             >
               {link.label}
               {hasChildren && (
@@ -48,8 +50,16 @@ export default function DesktopNav({ links, variant }: DesktopNavProps) {
             </Link>
 
             {hasChildren && (
-              <div className="invisible absolute left-0 top-full z-50 pt-[5px] opacity-0 transition-opacity duration-300 group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
-                <ul className="w-[220px] overflow-hidden rounded-[10px] bg-white shadow-[0_4px_10px_-2px_rgba(0,0,0,0.1)]">
+              <div
+                className={`invisible absolute left-0 top-full z-50 opacity-0 transition-opacity duration-300 group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100 ${
+                  isPill ? "pt-[5px]" : "pt-5"
+                }`}
+              >
+                <ul
+                  className={`w-[220px] overflow-hidden bg-white shadow-[0_4px_10px_-2px_rgba(0,0,0,0.1)] ${
+                    isPill ? "rounded-[10px]" : "rounded-xl"
+                  }`}
+                >
                   {link.children!.map((child) => (
                     <li key={child.label}>
                       <Link

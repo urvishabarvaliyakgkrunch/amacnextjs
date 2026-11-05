@@ -20,8 +20,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       className={`${mulish.variable} ${manrope.variable} ${inter.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
-      <body className="relative flex min-h-full flex-col">
+      <body className="relative flex min-h-full flex-col" suppressHydrationWarning>
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />

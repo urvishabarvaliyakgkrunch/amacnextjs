@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en-IE">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AMAC Coverage Map</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Mulish:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+  <style>
+    :root { --pine:#2f4a17; --green:#466b20; --leaf:#6e8f42; --sage:#8aa84e; --gold:#d39a2d; --ink:#1b1d1a; --muted:#667064; --paper:#f4f3ed; --white:#fff; --line:#dfe3d7; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; background: var(--paper); color: var(--ink); }
+    body { font-family: "Mulish", sans-serif; }
+    button, a { font: inherit; }
+    .coverage { width:100%; height:100vh; min-height:0; margin:0 auto; display:grid; grid-template-columns:minmax(0,1.65fr) minmax(310px,.72fr); background:var(--white); border:0; border-radius:0; overflow:hidden; box-shadow:none; isolation:isolate; }
+    .map-shell { position:relative; min-height:100vh; background:#e7eadf; }
+    #map { position:absolute; inset:0; }
+    .map-shade { position:absolute; inset:0; z-index:400; pointer-events:none; background:linear-gradient(180deg,rgba(27,29,26,.10),transparent 22%,transparent 72%,rgba(27,29,26,.14)); }
+    .map-intro { position:absolute; z-index:500; top:22px; left:22px; max-width:330px; padding:16px 18px; background:rgba(255,255,255,.94); border:1px solid rgba(255,255,255,.9); border-radius:16px; box-shadow:0 12px 32px rgba(29,44,20,.16); backdrop-filter:blur(8px); }
+    .eyebrow { margin:0 0 7px; font:800 11px/1.2 "Manrope",sans-serif; letter-spacing:.12em; text-transform:uppercase; color:var(--green); }
+    .map-intro h1 { margin:0; font:800 clamp(21px,2.1vw,30px)/1.12 "Manrope",sans-serif; letter-spacing:-.035em; }
+    .map-intro p { margin:8px 0 0; font-size:13.5px; line-height:1.48; color:var(--muted); }
+    .map-key { position:absolute; z-index:500; left:22px; bottom:22px; display:flex; align-items:center; gap:9px; padding:10px 12px; border-radius:999px; background:rgba(255,255,255,.94); box-shadow:0 8px 24px rgba(29,44,20,.14); font-size:12px; font-weight:700; }
+    .yard-dot { width:12px; height:12px; border-radius:50%; background:var(--ink); border:3px solid var(--gold); }
+    .panel { padding:30px 27px 25px; display:flex; flex-direction:column; min-width:0; }
+    .panel h2 { margin:0; font:800 27px/1.14 "Manrope",sans-serif; letter-spacing:-.035em; }
+    .panel > p { margin:10px 0 20px; color:var(--muted); font-size:14px; line-height:1.52; }
+    .filters { display:grid; gap:8px; }
+    .filter { width:100%; display:grid; grid-template-columns:12px 1fr auto; align-items:center; gap:10px; min-height:42px; padding:8px 12px; border:1px solid var(--line); border-radius:12px; background:var(--white); color:var(--ink); cursor:pointer; text-align:left; transition:border-color .15s,background .15s,transform .15s; }
+    .filter:hover { transform:translateY(-1px); border-color:#a9b69d; }
+    .filter[aria-pressed="true"] { background:#f1f5ec; border-color:#a8b899; }
+    .swatch { width:10px; height:10px; border-radius:50%; background:var(--swatch); box-shadow:0 0 0 3px color-mix(in srgb,var(--swatch),transparent 80%); }
+    .filter-name { font:700 13px/1.2 "Manrope",sans-serif; }
+    .count { color:var(--muted); font-size:11px; }
+    .towns-label { margin:22px 0 9px; font:800 10.5px/1.2 "Manrope",sans-serif; letter-spacing:.11em; text-transform:uppercase; color:var(--muted); }
+    .towns { display:flex; flex-wrap:wrap; gap:6px; min-height:60px; align-content:flex-start; }
+    .town { border:0; border-radius:999px; padding:6px 9px; background:var(--paper); color:var(--ink); cursor:pointer; font-size:11.5px; font-weight:700; }
+    .town:hover, .town:focus-visible { color:var(--white); background:var(--green); outline:none; }
+    .contact { margin-top:auto; padding-top:22px; border-top:1px solid var(--line); }
+    .contact p { margin:0 0 12px; font-size:12.5px; line-height:1.45; color:var(--muted); }
+    .cta { display:flex; justify-content:space-between; align-items:center; gap:12px; width:100%; padding:13px 15px; border-radius:999px; background:var(--ink); color:var(--white); text-decoration:none; font:700 13px/1 "Manrope",sans-serif; }
+    .cta span:last-child { font-size:17px; }
+    .leaflet-tile-pane { filter:grayscale(1) sepia(.08) hue-rotate(28deg) saturate(.55) brightness(1.05) contrast(.88); }
+    .leaflet-control-zoom { border:0 !important; box-shadow:0 8px 24px rgba(29,44,20,.15) !important; }
+    .leaflet-control-zoom a { border:0 !important; color:var(--pine) !important; }
+    .leaflet-control-attribution { background:rgba(255,255,255,.72) !important; font-size:9px !important; }
+    .leaflet-popup-content-wrapper { border-radius:16px; box-shadow:0 14px 34px rgba(29,44,20,.22); }
+    .leaflet-popup-content { margin:14px 16px 15px; min-width:205px; }
+    .popup-town { margin:0 0 8px; font:800 18px/1.15 "Manrope",sans-serif; }
+    .popup-region { display:inline-block; margin:0 0 11px; padding:4px 9px; border-radius:999px; background:var(--green); color:var(--white); font:800 9.5px/1.2 "Manrope",sans-serif; letter-spacing:.06em; text-transform:uppercase; }
+    .popup-label { margin:0; color:var(--muted); font:800 9.5px/1.25 "Manrope",sans-serif; letter-spacing:.08em; text-transform:uppercase; }
+    .service-pin { filter:drop-shadow(0 4px 5px rgba(20,35,12,.28)); }
+    .service-pin div { transition:transform .15s; }
+    .service-pin:hover div { transform:scale(1.12); }
+    .yard-label { border:0; border-radius:999px; padding:6px 9px; background:var(--ink); color:var(--white); box-shadow:0 8px 20px rgba(20,30,10,.22); font:800 10px/1 "Manrope",sans-serif; }
+    .yard-label::before { display:none; }
+    .town-label { border:1px solid rgba(47,74,23,.12); border-radius:6px; padding:5px 8px; background:rgba(255,255,255,.95); color:var(--pine); box-shadow:0 4px 12px rgba(29,44,20,.12); font:800 10px/1 "Manrope",sans-serif; }
+    .town-label::before { border-top-color:rgba(255,255,255,.95); }
+    @media (max-width:760px) {
+      body { background:var(--white); }
+      .coverage { height:auto; min-height:100vh; grid-template-columns:1fr; border:0; border-radius:0; box-shadow:none; }
+      .map-shell { min-height:390px; }
+      .map-intro { top:14px; left:14px; right:14px; max-width:none; padding:13px 15px; }
+      .map-intro h1 { font-size:21px; }
+      .map-intro p { display:none; }
+      .map-key { left:14px; bottom:14px; }
+      .panel { padding:23px 18px 22px; }
+      .panel h2 { font-size:24px; }
+      .panel > p { margin-bottom:16px; }
+      .filters { grid-template-columns:1fr 1fr; }
+      .filter { min-height:44px; padding:8px 10px; grid-template-columns:10px 1fr; }
+      .count { display:none; }
+      .contact { margin-top:22px; }
+      .leaflet-control-attribution { max-width:235px; white-space:normal; line-height:1.15; }
+      .town-label { display:none; }
+    }
+    @media (max-width:390px) {
+      .filters { grid-template-columns:1fr; }
+      .map-shell { min-height:365px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="coverage">
+    <section class="map-shell" aria-label="AMAC farm supply delivery areas">
+      <div id="map"></div>
+      <div class="map-shade"></div>
+      <div class="map-intro">
+        <p class="eyebrow">AMAC service area</p>
+        <h1>Local knowledge, delivered.</h1>
+        <p>Select a region or town to see the areas served from AMAC's Midleton base.</p>
+      </div>
+      <div class="map-key"><span class="yard-dot"></span> AMAC yard · Midleton</div>
+    </section>
+    <aside class="panel">
+      <h2>Farm supply delivery areas</h2>
+      <p>We serve the towns shown and their surrounding townlands and villages. Choose a region or town to explore the map.</p>
+      <div class="filters" id="filters" aria-label="Filter service areas"></div>
+      <p class="towns-label">Service towns</p>
+      <div class="towns" id="towns"></div>
+      <div class="contact">
+        <p>Call our team to arrange farm delivery. Solid fuel delivery covers Midleton, Cork City, Youghal and the areas in between, with a delivery charge.</p>
+        <a class="cta" href="tel:+353214630683" target="_top"><span>Call 021 463 0683</span><span aria-hidden="true">→</span></a>
+      </div>
+    </aside>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+  <script>
+    const REGIONS = {
+      "East Cork": { colour: "#2f4a17" },
+      "North Cork": { colour: "#466b20" },
+      "West Cork": { colour: "#6e8f42" },
+      "West Waterford": { colour: "#8aa84e" },
+      "South Limerick": { colour: "#d39a2d" }
+    };
+    const TOWNS = [
+      { town: "Midleton", region: "East Cork", coords: [51.9150, -8.1741] },
+      { town: "Youghal", region: "East Cork", coords: [51.9560, -7.8510] },
+      { town: "Fermoy", region: "North Cork", coords: [52.1390, -8.2760] },
+      { town: "Mallow", region: "North Cork", coords: [52.1355, -8.6390] },
+      { town: "Mitchelstown", region: "North Cork", coords: [52.2660, -8.2710] },
+      { town: "Kanturk", region: "North Cork", coords: [52.1780, -8.9060] },
+      { town: "Charleville", region: "North Cork", coords: [52.3550, -8.6780] },
+      { town: "Bandon", region: "West Cork", coords: [51.7460, -8.7350] },
+      { town: "Dungarvan", region: "West Waterford", coords: [52.0890, -7.6170] },
+      { town: "Tallow", region: "West Waterford", coords: [52.0930, -7.9970] },
+      { town: "Ballyduff", region: "West Waterford", coords: [52.1530, -8.0450] },
+      { town: "Croom", region: "South Limerick", coords: [52.5180, -8.7200] }
+    ];
+    const YARD = { name: "AMAC yard", coords: [51.9130, -8.1690] };
+    const map = L.map("map", { scrollWheelZoom: false, zoomControl: false, attributionControl: true }).setView([52.03, -8.28], 9);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { subdomains: "abc", maxZoom: 19, attribution: "&copy; OpenStreetMap contributors" }).addTo(map);
+    L.control.zoom({ position: "bottomright" }).addTo(map);
+
+    const layers = {}, markers = {}, boundsByRegion = {};
+    const allBounds = L.latLngBounds();
+    Object.keys(REGIONS).forEach(region => { layers[region] = L.layerGroup().addTo(map); boundsByRegion[region] = L.latLngBounds(); });
+
+    function pinIcon(colour) {
+      return L.divIcon({ className: "service-pin", iconSize: [24, 24], iconAnchor: [12, 12], popupAnchor: [0, -12],
+        html: `<div style="width:24px;height:24px;border-radius:50%;background:${colour};border:4px solid #fff;box-shadow:0 0 0 2px ${colour}"></div>` });
+    }
+    TOWNS.forEach(item => {
+      const marker = L.marker(item.coords, { icon: pinIcon(REGIONS[item.region].colour), riseOnHover: true });
+      marker.bindPopup(`<p class="popup-town">${item.town}</p><p class="popup-region">${item.region}</p><p class="popup-label">Delivery area</p>`);
+      marker.bindTooltip(item.town, { permanent: true, direction: "top", offset: [0, -16], className: "town-label" });
+      marker.addTo(layers[item.region]);
+      markers[item.town] = marker;
+      boundsByRegion[item.region].extend(item.coords);
+      allBounds.extend(item.coords);
+    });
+    L.marker(YARD.coords, { icon: L.divIcon({ className: "", iconSize: [22, 22], iconAnchor: [11, 11],
+      html: `<div style="width:22px;height:22px;border-radius:50%;background:#1b1d1a;border:4px solid #d39a2d;box-shadow:0 0 0 5px rgba(211,154,45,.24)"></div>` }) })
+      .addTo(map).bindTooltip("AMAC", { permanent: true, direction: "right", offset: [11, 0], className: "yard-label" });
+    allBounds.extend(YARD.coords);
+
+    function fit(bounds) {
+      map.fitBounds(bounds, {
+        paddingTopLeft: window.innerWidth <= 760 ? [28, 112] : [70, 105],
+        paddingBottomRight: window.innerWidth <= 760 ? [28, 55] : [55, 70],
+        maxZoom: 10
+      });
+    }
+    const filters = document.getElementById("filters");
+    const towns = document.getElementById("towns");
+    let activeRegion = "All areas";
+
+    function renderTowns(region) {
+      const visible = region === "All areas" ? TOWNS : TOWNS.filter(item => item.region === region);
+      towns.innerHTML = "";
+      visible.forEach(item => {
+        const button = document.createElement("button");
+        button.type = "button"; button.className = "town"; button.textContent = item.town;
+        button.addEventListener("click", () => { map.setView(item.coords, 11, { animate: true }); markers[item.town].openPopup(); });
+        towns.appendChild(button);
+      });
+    }
+    function selectRegion(region) {
+      activeRegion = region;
+      Object.keys(layers).forEach(name => {
+        if (region === "All areas" || name === region) map.addLayer(layers[name]); else map.removeLayer(layers[name]);
+      });
+      document.querySelectorAll(".filter").forEach(button => button.setAttribute("aria-pressed", String(button.dataset.region === region)));
+      renderTowns(region);
+      fit(region === "All areas" ? allBounds : boundsByRegion[region]);
+    }
+    ["All areas", ...Object.keys(REGIONS)].forEach(region => {
+      const button = document.createElement("button");
+      const colour = region === "All areas" ? "#1b1d1a" : REGIONS[region].colour;
+      const count = region === "All areas" ? TOWNS.length : TOWNS.filter(item => item.region === region).length;
+      button.type = "button"; button.className = "filter"; button.dataset.region = region;
+      button.style.setProperty("--swatch", colour);
+      button.setAttribute("aria-pressed", String(region === activeRegion));
+      button.innerHTML = `<span class="swatch"></span><span class="filter-name">${region}</span><span class="count">${count} town${count === 1 ? "" : "s"}</span>`;
+      button.addEventListener("click", () => selectRegion(region));
+      filters.appendChild(button);
+    });
+    renderTowns("All areas");
+    setTimeout(() => fit(allBounds), 80);
+    window.addEventListener("resize", () => setTimeout(() => fit(activeRegion === "All areas" ? allBounds : boundsByRegion[activeRegion]), 100));
+  </script>
+</body>
+</html>

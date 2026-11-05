@@ -49,15 +49,16 @@ function ContactIcon({ children }: { children: ReactNode }) {
   );
 }
 
+// Kit font-size drops to 14px on phones; body line-height is the Enfold 1.65 (set here since globals.css no longer sets it)
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-footer-alt">
+    <footer className="relative overflow-hidden bg-footer-alt text-sm leading-[1.65] min-[768px]:text-base">
       <Image src={FOOTER_BG_URL} alt="" aria-hidden fill sizes="100vw" className="object-cover" />
       <div className="absolute inset-0 bg-footer-alt/80" />
 
       <div className={`relative ${SIDE_PADDING}`}>
         <div className={`${MAX_WIDTH} flex flex-col gap-8 pb-[35px] pt-10 min-[768px]:pb-[60px] min-[768px]:pt-[100px]`}>
-          <div className="flex flex-col items-start gap-[30px] min-[1025px]:flex-row min-[1025px]:gap-5 min-[1201px]:gap-[43px]">
+          <div className="flex flex-col items-start gap-[30px] min-[768px]:gap-5 min-[1025px]:flex-row min-[1201px]:gap-[43px]">
             <div className="flex w-full flex-col rounded-2xl bg-footer p-5 min-[768px]:p-8 min-[1025px]:w-1/2 min-[1201px]:w-2/5">
               <Image src={LOGO_URL} alt="AMAC Farm Supplies" width={160} height={71} className="h-auto w-[160px]" />
               <p className="mt-[27px] w-[85%] text-sm leading-[19px] text-footer-muted">{SITE.blurb}</p>
@@ -66,15 +67,12 @@ export default function Footer() {
                 {CONTACT_ROWS.map((row) => (
                   <li key={row.label}>
                     {row.href ? (
-                      <a
-                        href={row.href}
-                        className="flex items-center gap-3 text-footer-text transition-colors duration-300 hover:text-white/65"
-                      >
+                      <a href={row.href} className="flex items-center gap-[13px] text-footer-text">
                         <ContactIcon>{row.icon}</ContactIcon>
                         {row.label}
                       </a>
                     ) : (
-                      <span className="flex items-center gap-3 text-footer-text">
+                      <span className="flex items-center gap-[13px] text-footer-text">
                         <ContactIcon>{row.icon}</ContactIcon>
                         {row.label}
                       </span>
@@ -85,7 +83,7 @@ export default function Footer() {
 
               <Link
                 href="/products"
-                className="mt-7 flex w-fit items-center gap-3 rounded-full bg-[radial-gradient(at_50%_100%,white,var(--color-btn-mid),white)] px-[30px] py-4 text-base font-bold leading-6 text-footer shadow-[0_18px_52px_-10px_rgba(0,0,0,0.38)] transition-transform duration-500 hover:-translate-y-[5px]"
+                className="mt-7 flex w-fit items-center gap-3 rounded-full bg-[radial-gradient(at_50%_100%,white,var(--color-btn-mid),white)] px-[30px] py-4 text-base font-bold leading-6 text-footer shadow-[var(--shadow-button)] transition-[transform,color] duration-500 hover:-translate-y-[5px] hover:text-white hover:[background-image:var(--gradient-primary)] hover:shadow-[var(--shadow-button-inset)]"
               >
                 View Products
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -105,7 +103,7 @@ export default function Footer() {
                       <li key={link.label}>
                         <Link
                           href={link.href}
-                          className="block text-base leading-[1.65] text-white transition-colors duration-300 hover:text-white/65"
+                          className="block text-white transition-colors duration-300 hover:text-white/65"
                         >
                           {link.label}
                         </Link>
@@ -117,12 +115,12 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="flex flex-col gap-2.5 min-[768px]:flex-row min-[768px]:items-center min-[768px]:justify-between">
-            <div className="flex flex-col gap-2 text-base leading-4 text-footer-text">
+          <div className="flex flex-col gap-2.5 min-[768px]:flex-row min-[768px]:items-center min-[768px]:justify-between min-[768px]:gap-5">
+            <div className="flex flex-col gap-2 leading-4 text-footer-text min-[768px]:w-[calc(50%-10px)]">
               <span>© 2026 AMAC Farm Supplies Ltd. All Rights Reserved.</span>
               <span>
                 Website and marketing by{" "}
-                <a href="https://methodmarketing.ie/" className="underline transition-colors duration-300 hover:text-white/65">
+                <a href="https://methodmarketing.ie/" className="underline">
                   Method Marketing
                 </a>
               </span>
@@ -130,7 +128,7 @@ export default function Footer() {
             <ul className="flex items-center gap-6">
               {FOOTER_LEGAL_LINKS.map((link) => (
                 <li key={link.label}>
-                  <Link href={link.href} className="text-base text-footer-text transition-colors duration-300 hover:text-white/65">
+                  <Link href={link.href} className="text-footer-text transition-colors duration-300 hover:text-white/65">
                     {link.label}
                   </Link>
                 </li>

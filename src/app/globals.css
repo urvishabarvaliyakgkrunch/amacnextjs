@@ -30,6 +30,33 @@
   --color-footer-muted: #c8d4cb; /* footer blurb text */
   --color-footer-text: #f6f6f6;
   --color-btn-mid: #c2cdbd; /* middle stop of the white radial-gradient buttons */
+
+  /* Home page (post-19 + wp-custom-css on amac.ie) */
+  --color-eyebrow: #4e833b; /* section eyebrow label */
+  --color-eyebrow-hero: #444444; /* hero eyebrow label */
+  --color-hero-ink: #1f1e17; /* hero stat title */
+  --color-hero-muted: #878680; /* hero stat description */
+  --color-divider: #e4e2d7; /* hero stat column divider */
+  --color-story-ink: #011206; /* "Our Story" heading */
+  --color-body-dark: #373737; /* "Our Story" paragraph */
+  --color-icon-dark: #2c6a10; /* product / service card icons */
+  --color-feed-btn: #335f1b; /* "View Animal Feed" text */
+  --color-team-bg: #d2d5e4; /* team card frame */
+  --color-team-label: #2d6e11; /* team name plate */
+  --color-team-sub: #e8e8e8; /* team role text */
+  --color-blog-date: #2d6d11;
+  --color-blog-link: #347219;
+  --color-hero-sky: #b8d9f5; /* mobile hero sky behind the yard image */
+
+  /* kg-*-button radial gradients */
+  --gradient-primary: radial-gradient(68.28% 92.86% at 50.28% 92.86%, #5b8c24 0, #2c6c10 49.68%, #2d6e11 100%);
+  --gradient-black: radial-gradient(68.28% 92.86% at 50.28% 92.86%, #727272 0, #282828 49.68%, #111 100%);
+  --gradient-black-hover: radial-gradient(68.28% 92.86% at 50.28% 92.86%, #466b207a 0, #466b20 49.68%, #466b20 100%);
+  --gradient-white-home: radial-gradient(ellipse at bottom, #dcffaf, #fff, #fff);
+  --shadow-button: 0 18px 52px -10px rgba(0, 0, 0, 0.38);
+  --shadow-button-inset: inset 0 8px 18px -2px #ffffff80;
+  --shadow-stats: 0 10px 60px 0 rgba(0, 0, 0, 0.1);
+  --shadow-card: 0 0 10px 0 rgba(0, 0, 0, 0.2); /* "Why Farmers Choose" card */
 }
 
 @theme inline {
@@ -60,6 +87,28 @@
   --color-footer-muted: var(--color-footer-muted);
   --color-footer-text: var(--color-footer-text);
   --color-btn-mid: var(--color-btn-mid);
+  --color-eyebrow: var(--color-eyebrow);
+  --color-eyebrow-hero: var(--color-eyebrow-hero);
+  --color-hero-ink: var(--color-hero-ink);
+  --color-hero-muted: var(--color-hero-muted);
+  --color-divider: var(--color-divider);
+  --color-story-ink: var(--color-story-ink);
+  --color-body-dark: var(--color-body-dark);
+  --color-icon-dark: var(--color-icon-dark);
+  --color-feed-btn: var(--color-feed-btn);
+  --color-team-bg: var(--color-team-bg);
+  --color-team-label: var(--color-team-label);
+  --color-team-sub: var(--color-team-sub);
+  --color-blog-date: var(--color-blog-date);
+  --color-blog-link: var(--color-blog-link);
+  --color-hero-sky: var(--color-hero-sky);
+
+  --animate-marquee: marquee 40s linear infinite;
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
 }
 
 @layer base {
