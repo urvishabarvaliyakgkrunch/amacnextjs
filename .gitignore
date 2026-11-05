@@ -42,4 +42,5 @@ next-env.d.ts
 
 # Internal working docs — never go to git
 .clauderules
+# internal notes (never committed — see AGENTS.md 0.2)
 CONTEXT.md

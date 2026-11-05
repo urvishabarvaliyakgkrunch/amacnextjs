@@ -11,7 +11,7 @@ type ProductCardProps = {
 
 export default function ProductCard({ title, description, image, href }: ProductCardProps) {
   return (
-    <div className="group flex flex-col overflow-hidden rounded-lg border border-[color:var(--color-border)] bg-[color:var(--color-bg-alt)]">
+    <div className="group flex flex-col overflow-hidden rounded-lg border border-[color:var(--color-card-border)] bg-[color:var(--color-card-bg)]">
       <div className="relative h-[260px] w-full overflow-hidden">
         <Image
           src={image}
