@@ -22,7 +22,7 @@ export default function ProductsPage() {
         image="https://amac.ie/wp-content/uploads/2026/08/Field-1.webp"
       />
 
-      <section className="py-10 md:py-[60px] lg:pt-[110px] lg:pb-[110px]">
+      <section className="py-10 md:py-[60px] lg:pt-[110px] lg:pb-[110px] bg-[#fafafa]">
         <div className="mx-auto max-w-[1680px] px-4 sm:px-6 lg:px-0">
           <div className="text-center md:mb-[58px]">
             <SectionEyebrow label="Products & Services" />

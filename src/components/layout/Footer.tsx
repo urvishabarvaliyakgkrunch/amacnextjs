@@ -13,27 +13,21 @@ const CONTACT_ROWS = [
     label: SITE.phoneFooter,
     href: "tel:0214630683",
     icon: (
-      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z" />
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="16" fill="#009A27"></rect><g clipPath="url(#clip0_107_1702)"><path d="M17.7744 17.5835C17.8436 17.5374 17.9233 17.5093 18.0061 17.5018C18.0889 17.4943 18.1723 17.5075 18.2488 17.5404L21.1963 18.861C21.2956 18.9034 21.3785 18.9769 21.4326 19.0704C21.4867 19.164 21.509 19.2725 21.4963 19.3797C21.3991 20.1054 21.0418 20.7711 20.4907 21.253C19.9395 21.7349 19.2321 22.0003 18.5 21.9997C16.2457 21.9997 14.0837 21.1042 12.4896 19.5102C10.8955 17.9161 10 15.7541 10 13.4997C9.99944 12.7676 10.2648 12.0602 10.7467 11.5091C11.2287 10.9579 11.8943 10.6006 12.62 10.5035C12.7273 10.4907 12.8358 10.5131 12.9293 10.5672C13.0228 10.6212 13.0963 10.7042 13.1388 10.8035L14.4594 13.7535C14.4918 13.8293 14.505 13.9119 14.4978 13.994C14.4906 14.0761 14.4633 14.1551 14.4181 14.2241L13.0825 15.8122C13.0351 15.8837 13.0071 15.9663 13.0012 16.0519C12.9953 16.1374 13.0117 16.223 13.0488 16.3004C13.5656 17.3585 14.6594 18.4391 15.7206 18.951C15.7984 18.9879 15.8844 19.0039 15.9702 18.9975C16.056 18.991 16.1387 18.9623 16.21 18.9141L17.7744 17.5835Z" stroke="#D5DC1A" strokeLinecap="round" strokeLinejoin="round"></path><path d="M17 13H21" stroke="#D5DC1A" strokeLinecap="round" strokeLinejoin="round"></path><path d="M19 11V15" stroke="#D5DC1A" strokeLinecap="round" strokeLinejoin="round"></path></g><defs><clipPath id="clip0_107_1702"><rect width="16" height="16" fill="white" transform="translate(8 8)"></rect></clipPath></defs></svg>
     ),
   },
   {
     label: SITE.email,
     href: "mailto:info@amac.ie",
     icon: (
-      <>
-        <rect x="2" y="4" width="20" height="16" rx="2" />
-        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-      </>
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="16" fill="#009A27"></rect><g clipPath="url(#clip0_107_1710)"><path d="M22 11.5L16 17L10 11.5" stroke="#D5DC1A" strokeLinecap="round" strokeLinejoin="round"></path><path d="M10 11.5H22V20C22 20.1326 21.9473 20.2598 21.8536 20.3536C21.7598 20.4473 21.6326 20.5 21.5 20.5H10.5C10.3674 20.5 10.2402 20.4473 10.1464 20.3536C10.0527 20.2598 10 20.1326 10 20V11.5Z" stroke="#D5DC1A" strokeLinecap="round" strokeLinejoin="round"></path><path d="M14.9093 16L10.1543 20.3588" stroke="#D5DC1A" strokeLinecap="round" strokeLinejoin="round"></path><path d="M21.8458 20.3588L17.0908 16" stroke="#D5DC1A" strokeLinecap="round" strokeLinejoin="round"></path></g><defs><clipPath id="clip0_107_1710"><rect width="16" height="16" fill="white" transform="translate(8 8)"></rect></clipPath></defs></svg>
     ),
   },
   {
     label: SITE.shortAddress,
     href: undefined,
     icon: (
-      <>
-        <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z" />
-        <circle cx="12" cy="10" r="3" />
-      </>
+     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="16" fill="#009A27"></rect><g clipPath="url(#clip0_107_1719)"><path d="M16 14C16.5523 14 17 13.5523 17 13C17 12.4477 16.5523 12 16 12C15.4477 12 15 12.4477 15 13C15 13.5523 15.4477 14 16 14Z" fill="#D5DC1A"></path><path d="M19.5 13C19.5 16.5 16 18.5 16 18.5C16 18.5 12.5 16.5 12.5 13C12.5 12.0717 12.8687 11.1815 13.5251 10.5251C14.1815 9.86875 15.0717 9.5 16 9.5C16.9283 9.5 17.8185 9.86875 18.4749 10.5251C19.1313 11.1815 19.5 12.0717 19.5 13Z" stroke="#D5DC1A" strokeLinecap="round" strokeLinejoin="round"></path><path d="M20.5 17.6963C21.7325 18.1513 22.5 18.7913 22.5 19.5C22.5 20.8807 19.59 22 16 22C12.41 22 9.5 20.8807 9.5 19.5C9.5 18.7913 10.2675 18.1513 11.5 17.6963" stroke="#D5DC1A" strokeLinecap="round" strokeLinejoin="round"></path></g><defs><clipPath id="clip0_107_1719"><rect width="16" height="16" fill="white" transform="translate(8 8)"></rect></clipPath></defs></svg>
     ),
   },
 ];
@@ -68,12 +62,12 @@ export default function Footer() {
                   <li key={row.label}>
                     {row.href ? (
                       <a href={row.href} className="flex items-center gap-[13px] text-footer-text">
-                        <ContactIcon>{row.icon}</ContactIcon>
+                        {row.icon}
                         {row.label}
                       </a>
                     ) : (
                       <span className="flex items-center gap-[13px] text-footer-text">
-                        <ContactIcon>{row.icon}</ContactIcon>
+                        {row.icon}
                         {row.label}
                       </span>
                     )}
@@ -86,9 +80,7 @@ export default function Footer() {
                 className="mt-7 flex w-fit items-center gap-3 rounded-full px-[30px] py-4 text-base font-bold leading-6 text-footer shadow-[var(--shadow-button)] transition-all duration-500 [background:var(--gradient-white-footer)]   hover:text-white hover:[background:var(--gradient-primary)] hover:shadow-[var(--shadow-button-inset)]"
               >
                 View Products
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M4 12h16m0 0-6-6m6 6-6 6" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="13" viewBox="0 0 18 13" fill="none"><path fillRule="evenodd" clipRule="evenodd" d="M10.7197 0.21967C11.0126 -0.0732233 11.4874 -0.0732233 11.7803 0.21967L17.1389 5.57825C17.5099 5.94925 17.5099 6.55075 17.1389 6.92175L11.7803 12.2803C11.4874 12.5732 11.0126 12.5732 10.7197 12.2803C10.4268 11.9874 10.4268 11.5126 10.7197 11.2197L14.9393 7H0.75C0.335786 7 0 6.66421 0 6.25C0 5.83579 0.335786 5.5 0.75 5.5H14.9393L10.7197 1.28033C10.4268 0.987437 10.4268 0.512563 10.7197 0.21967Z" fill="currentColor"></path></svg>
               </Link>
             </div>
 

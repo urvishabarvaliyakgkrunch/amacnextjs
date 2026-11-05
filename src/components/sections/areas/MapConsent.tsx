@@ -4,17 +4,26 @@
 import { useState } from "react";
 
 // The map pulls CARTO / Cloudflare / Google Fonts, so it only loads after the visitor agrees (same as live)
-export default function MapConsent() {
+export default function MapConsent({ src = "/coverage-map-areas.html" }: { src?: string }) {
   const [loaded, setLoaded] = useState(false);
 
   if (loaded) {
     return (
-      <iframe
-        src="/coverage-map.html"
-        title="AMAC delivery areas map"
-        loading="lazy"
-        className="h-[420px] w-full rounded-[20px] border border-card-border md:h-[500px]"
-      />
+      <div>
+        <iframe
+          src={src}
+          title="AMAC delivery areas map"
+          loading="lazy"
+          className="h-[420px] w-full rounded-[20px] border border-card-border md:h-[500px]"
+        />
+        <button
+          type="button"
+          onClick={() => setLoaded(false)}
+          className="mt-3 cursor-pointer rounded-3xl border border-primary bg-transparent px-[18px] py-2.5 text-base leading-6 font-semibold text-primary shadow-[0px_18px_52px_-10px_rgba(0,0,0,0.38)] transition-all duration-400 hover:bg-primary hover:text-white"
+        >
+          Hide map and withdraw map consent
+        </button>
+      </div>
     );
   }
 

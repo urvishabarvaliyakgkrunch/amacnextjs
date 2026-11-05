@@ -14,7 +14,10 @@ export default function AboutStory() {
             src="https://amac.ie/wp-content/uploads/2026/10/DM1_9847-2048x1366.jpg"
             alt="AMAC founders Richard McCarthy and Aidan Murphy"
             fill
+            placeholder="blur"
+            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMDAwMDAwQEBAQFBQUFBwcGBgcHCQoKCAoKCQ4NDQ0NDQ4RERISERERGBcYGBgXKigmJygyMjU1NTtAQEBAQEBAQEBAQEBAQED/2wBDAQUFBQgIDAwODAwYGBgYGCAgICAgIDAwMDAwMDBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQED/wAARCAAQABQDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAf/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/9sAQwAEBQUFBQgICAgICwwMCwsPDg4ODxccFxcXFxwgICAgICAgMDAwMDAwQEBAQEBAQEBAQEBAQEBAQEBAQEBAQP/bAEMBBQUFBQgICAgICAwMDA8XFxcXHCAgICAgICAwMDAwMDBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQED/2gAMAwEAAhEDEQAAAfSAAwAAAAAAAAD/2Q=="
             className="rounded-2xl object-cover"
+            style={{ objectPosition: "28% center" }}
             sizes="(min-width: 1024px) 33vw, 100vw"
           />
         </div>

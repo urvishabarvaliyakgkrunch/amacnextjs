@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en-IE">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AMAC Farm Supplies — Areas We Serve</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Mulish:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#466B20;
+    --green-deep:#2F4A17;
+    --green-soft:#6E8F42;
+    --charcoal:#1B1D1A;
+    --gold:#D39A2D;
+    --ink:#22282B;
+    --grey:#6E7A73;
+    --line:#e7e6df;
+    --panel:#ffffff;
+    --paper:#f6f5ef;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;height:100%;background:var(--paper);color:var(--ink);
+    font-family:"Mulish",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+  .wrap{display:flex;flex-direction:column;height:100%;min-height:560px}
+
+  .layout{flex:1;display:flex;min-height:0}
+  #map{flex:1;min-height:0;background:var(--paper)}
+  .side{width:300px;background:var(--panel);border-left:1px solid var(--line);padding:22px 20px;overflow:auto}
+  .side h2{font-family:"Manrope",sans-serif;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.8px;color:var(--grey);margin:0 0 8px}
+  .side .lead{font-size:14px;color:var(--ink);line-height:1.6;margin:0 0 18px}
+  .region{display:flex;align-items:center;gap:11px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;margin-bottom:9px;cursor:pointer;transition:background .15s,border-color .15s}
+  .region:hover{background:var(--paper);border-color:#d8d7cd}
+  .region.off{opacity:.42}
+  .region input{position:absolute;opacity:0;pointer-events:none}
+  .swatch{width:14px;height:14px;border-radius:50%;flex:0 0 auto;box-shadow:0 0 0 3px rgba(70,107,32,.10)}
+  .region .name{font-family:"Manrope",sans-serif;font-weight:700;font-size:13.5px;color:var(--ink)}
+  .note{font-size:12.5px;color:var(--grey);line-height:1.65;margin-top:18px;border-top:1px solid var(--line);padding-top:16px}
+
+  .leaflet-container{font-family:"Mulish",sans-serif;background:var(--paper)}
+  .leaflet-tile-pane{filter:grayscale(1) contrast(.96) brightness(1.04)}
+  .town-label{font-family:"Manrope",sans-serif;font-weight:700;font-size:11px;color:var(--green-deep);
+    text-shadow:0 1px 2px #fff,0 0 3px #fff,0 0 6px #fff;white-space:nowrap;letter-spacing:.2px}
+  .leaflet-popup-content-wrapper{border-radius:14px;box-shadow:0 10px 30px rgba(20,30,10,.18);padding:2px}
+  .leaflet-popup-content{margin:14px 16px;line-height:1.45}
+  .leaflet-popup-tip{box-shadow:0 10px 30px rgba(20,30,10,.18)}
+  .pop-town{font-family:"Manrope",sans-serif;font-size:16px;font-weight:800;color:var(--ink)}
+  .pop-region{display:inline-block;font-family:"Manrope",sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.6px;
+    text-transform:uppercase;color:#fff;background:var(--green);padding:3px 9px;border-radius:999px;margin:7px 0 10px}
+  .pop-lab{font-size:10.5px;text-transform:uppercase;letter-spacing:.7px;color:var(--grey);margin-bottom:4px;font-weight:700}
+  .pop-list{font-size:13px;color:var(--ink)}
+  .pin{filter:drop-shadow(0 3px 4px rgba(20,30,10,.30));transition:transform .12s}
+  .pin:hover{transform:translateY(-2px) scale(1.06)}
+  @media (max-width:760px){.layout{flex-direction:column}.side{width:auto;border-left:none;border-top:1px solid var(--line);max-height:44%}}
+  @media (max-width:420px){
+    .side{padding:18px 16px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="layout">
+    <div id="map"></div>
+    <aside class="side">
+      <h2>Coverage</h2>
+      <p class="lead">Our farm supply service covers the towns shown and their surrounding townlands and villages. Select a pin or filter by region.</p>
+      <div id="legend"></div>
+      <div class="note">
+        Farm supplies from Midleton to East Cork, North Cork, Bandon and surrounding West Cork areas, West Waterford, and Croom and surrounding South Limerick areas. For delivery arrangements, call 021 463 0683.
+      </div>
+    </aside>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+  const REGIONS = {
+    "East Cork":      { colour:"#2F4A17" },
+    "North Cork":     { colour:"#466B20" },
+    "West Cork":      { colour:"#6E8F42" },
+    "West Waterford": { colour:"#8AA84E" },
+    "South Limerick": { colour:"#B7A23A" }
+  };
+
+  const TOWNS = [
+    { town:"Midleton",     region:"East Cork",      coords:[51.9150,-8.1741], around:["Surrounding townlands and villages. Contact AMAC to arrange delivery to your farm."] },
+    { town:"Youghal",      region:"East Cork",      coords:[51.9560,-7.8510], around:["Surrounding townlands and villages. Contact AMAC to arrange delivery to your farm."] },
+    { town:"Fermoy",       region:"North Cork",     coords:[52.1390,-8.2760], around:["Surrounding townlands and villages. Contact AMAC to arrange delivery to your farm."] },
+    { town:"Mallow",       region:"North Cork",     coords:[52.1355,-8.6390], around:["Surrounding townlands and villages. Contact AMAC to arrange delivery to your farm."] },
+    { town:"Mitchelstown", region:"North Cork",     coords:[52.2660,-8.2710], around:["Surrounding townlands and villages. Contact AMAC to arrange delivery to your farm."] },
+    { town:"Kanturk",      region:"North Cork",     coords:[52.1780,-8.9060], around:["Surrounding townlands and villages. Contact AMAC to arrange delivery to your farm."] },
+    { town:"Charleville",  region:"North Cork",     coords:[52.3550,-8.6780], around:["Surrounding townlands and villages. Contact AMAC to arrange delivery to your farm."] },
+    { town:"Bandon",       region:"West Cork",      coords:[51.7460,-8.7350], around:["Surrounding townlands and villages. Contact AMAC to arrange delivery to your farm."] },
+    { town:"Dungarvan",    region:"West Waterford", coords:[52.0890,-7.6170], around:["Surrounding townlands and villages. Contact AMAC to arrange delivery to your farm."] },
+    { town:"Tallow",       region:"West Waterford", coords:[52.0930,-7.9970], around:["Surrounding townlands and villages. Contact AMAC to arrange delivery to your farm."] },
+    { town:"Ballyduff",    region:"West Waterford", coords:[52.1530,-8.0450], around:["Surrounding townlands and villages. Contact AMAC to arrange delivery to your farm."] },
+    { town:"Croom",        region:"South Limerick", coords:[52.5180,-8.7200], around:["Surrounding townlands and villages. Contact AMAC to arrange delivery to your farm."] }
+  ];
+
+  const YARD = { name:"AMAC yard, Townspark", coords:[51.9130,-8.1690] };
+
+  const map = L.map('map', { scrollWheelZoom:true, zoomControl:true, attributionControl:true }).setView([52.02,-8.28], 9);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    subdomains:'abc', maxZoom:19,
+    attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+  }).addTo(map);
+
+  const layers = {};
+  Object.keys(REGIONS).forEach(r => layers[r] = L.layerGroup().addTo(map));
+  const bounds = L.latLngBounds();
+
+  TOWNS.forEach(t => {
+    L.circle(t.coords, { radius:8500, stroke:false, fillColor:REGIONS[t.region].colour, fillOpacity:0.10 })
+      .addTo(layers[t.region]);
+  });
+
+  function pinIcon(colour){
+    const svg =
+      `<svg class="pin" width="30" height="40" viewBox="0 0 30 40" xmlns="http://www.w3.org/2000/svg">
+         <path d="M15 39 C6 27 1 21 1 13 A14 14 0 0 1 29 13 C29 21 24 27 15 39 Z" fill="${colour}" stroke="#ffffff" stroke-width="2.2"/>
+         <circle cx="15" cy="13" r="4.6" fill="#ffffff" fill-opacity="0.92"/>
+       </svg>`;
+    return L.divIcon({ className:'', html:svg, iconSize:[30,40], iconAnchor:[15,39], popupAnchor:[0,-34] });
+  }
+
+  TOWNS.forEach(t => {
+    const colour = REGIONS[t.region].colour;
+    const m = L.marker(t.coords, { icon:pinIcon(colour), riseOnHover:true });
+    m.bindPopup(
+      `<div class="pop-town">${t.town}</div>
+       <div class="pop-region" style="background:${colour}">${t.region}</div>
+       <div class="pop-lab">Delivery area</div>
+       <div class="pop-list">${t.around.join(", ")}</div>`
+    );
+    m.bindTooltip(t.town, { permanent:true, direction:'top', offset:[0,-40], className:'town-label' });
+    m.addTo(layers[t.region]);
+    bounds.extend(t.coords);
+  });
+
+  L.marker(YARD.coords, {
+    icon:L.divIcon({ className:'', iconSize:[22,22], iconAnchor:[11,11], popupAnchor:[0,-12],
+      html:`<svg width="22" height="22" viewBox="0 0 22 22"><circle cx="11" cy="11" r="9" fill="#1B1D1A" stroke="#D39A2D" stroke-width="2.5"/><circle cx="11" cy="11" r="3" fill="#D39A2D"/></svg>` })
+  }).bindPopup(`<div class="pop-town">AMAC Yard</div><div class="pop-list">Townspark, Midleton, Co. Cork</div>`).addTo(map);
+  bounds.extend(YARD.coords);
+
+  map.fitBounds(bounds, { padding:[60,60] });
+
+  const legend = document.getElementById('legend');
+  Object.keys(REGIONS).forEach(r => {
+    const row = document.createElement('label');
+    row.className = 'region';
+    row.innerHTML =
+      `<input type="checkbox" checked>
+       <span class="swatch" style="background:${REGIONS[r].colour}"></span>
+       <span class="name">${r}</span>`;
+    legend.appendChild(row);
+    const cb = row.querySelector('input');
+    cb.addEventListener('change', () => {
+      if (cb.checked){ map.addLayer(layers[r]); row.classList.remove('off'); }
+      else { map.removeLayer(layers[r]); row.classList.add('off'); }
+    });
+  });
+</script>
+</body>
+</html>
