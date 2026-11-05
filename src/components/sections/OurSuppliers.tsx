@@ -20,25 +20,22 @@ function LogoRow({ ariaHidden = false }: { ariaHidden?: boolean }) {
   );
 }
 
-type OurSuppliersProps = {
-  title?: string;
-  subtitle?: string;
-};
-
-export default function OurSuppliers({
-  title = "Brands We Work With",
-  subtitle = "We stock trusted names and match the product to your ground.",
-}: OurSuppliersProps) {
+export default function OurSuppliers({ variant = "default" }: { variant?: "default" | "home" }) {
+  const home = variant === "home";
   return (
-    <section className="bg-white py-10 md:py-[60px] lg:py-[105px]">
+    <section className={`py-10 md:py-[60px] lg:py-[105px] ${home ? "bg-bg-alt" : "bg-white"}`}>
       <div className="px-4 text-center sm:px-6">
         <SectionEyebrow label="Our Suppliers" uppercase />
-        <h2>{title}</h2>
-        <p className="mx-auto mt-3 max-w-[560px] text-[color:var(--color-muted)]">{subtitle}</p>
+        <h2>{home ? "Trusted Brands, Stocked Locally" : "Brands We Work With"}</h2>
+        {!home && (
+          <p className="mx-auto mt-3 max-w-[560px] text-[color:var(--color-muted)]">
+            We stock trusted names and match the product to your ground.
+          </p>
+        )}
       </div>
 
       {/* full-bleed infinite marquee — matches amac.ie edge-to-edge logo strip */}
-      <div className="mt-[58px] flex min-h-[72px] w-full overflow-hidden [mask-image:linear-gradient(90deg,transparent,black_5%,black_95%,transparent)]">
+      <div className="mt-[58px] lg:mt-[78px] flex min-h-[72px] w-full overflow-hidden [mask-image:linear-gradient(90deg,transparent,black_5%,black_95%,transparent)]">
         <div className="flex w-max animate-[marquee_30s_linear_infinite]">
           <LogoRow />
           <LogoRow ariaHidden />

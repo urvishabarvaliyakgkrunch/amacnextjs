@@ -8,7 +8,7 @@ import LatestPosts from "@/components/sections/home/LatestPosts";
 import MeetTheTeam from "@/components/sections/home/MeetTheTeam";
 import OurStory from "@/components/sections/home/OurStory";
 import TechnicalServices from "@/components/sections/home/TechnicalServices";
-import WhatWeSupply from "@/components/sections/home/WhatWeSupply";
+import OurProducts from "@/components/sections/OurProducts";
 import { LATEST_POSTS } from "@/components/sections/home/home-data";
 
 export default function Home() {
@@ -17,10 +17,10 @@ export default function Home() {
       <HomeHero />
       <OurStory />
       <FeedBanner />
-      <WhatWeSupply />
+      <OurProducts />
       <MeetTheTeam />
       <TechnicalServices />
-      <OurSuppliers />
+      <OurSuppliers variant="home" />
       <CoverageMap />
       <LatestPosts posts={LATEST_POSTS} />
       <Newsletter />

@@ -39,7 +39,7 @@ export default function DesktopNav({ links, variant }: DesktopNavProps) {
           <div key={link.label} className="group relative">
             <Link
               href={link.href}
-              className={`flex items-center gap-2.5 rounded-full text-base transition-colors duration-300 ${sizeClass} ${stateClass}`}
+              className={`flex items-center gap-2.5 whitespace-nowrap rounded-full text-base transition-colors duration-300 ${sizeClass} ${stateClass}`}
             >
               {link.label}
               {hasChildren && (
@@ -64,7 +64,7 @@ export default function DesktopNav({ links, variant }: DesktopNavProps) {
                     <li key={child.label}>
                       <Link
                         href={child.href}
-                        className="block px-6 py-2.5 font-menu text-base leading-5 text-black transition-colors duration-300 hover:text-primary"
+                        className="block py-[10px] px-[24px] font-menu text-base leading-5 text-black transition-colors duration-300 hover:text-primary"
                       >
                         {child.label}
                       </Link>

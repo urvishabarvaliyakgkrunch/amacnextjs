@@ -11,7 +11,7 @@ export default function OurStory() {
     <section className={`bg-bg-alt py-10 md:py-[60px] lg:pt-[50px] lg:pb-[115px] ${SIDE_PADDING}`}>
       <div className={`${MAX_WIDTH} relative flex flex-col gap-5 lg:flex-row lg:items-end min-[1025px]:max-[1200px]:gap-[30px] min-[1201px]:gap-[52px]`}>
         {/* Live crops this photo with a 111% width + -10% shift to hide the left edge */}
-        <div className="w-full max-lg:min-h-[300px] lg:min-h-[790px] lg:w-1/2 lg:shrink-0 lg:self-start">
+        <div className="w-full max-lg:min-h-[300px] lg:min-h-[790px] lg:w-1/2 lg:self-start">
         <div className="relative aspect-[1.35] w-full overflow-hidden rounded-2xl">
           <Image
             src={`${UPLOADS}/2026/08/DM1_4697-1536x1024.webp`}
@@ -23,7 +23,7 @@ export default function OurStory() {
         </div>
         </div>
 
-        <div className="lg:w-1/2 lg:self-stretch min-[1025px]:max-[1200px]:pb-[320px] min-[1201px]:pb-[370px]">
+        <div className="lg:w-1/2 lg:self-stretch min-[1025px]:max-[1200px]:pb-[320px] min-[1201px]:pb-[350px]">
           <SectionEyebrow
             align="start"
             tone="accent"
@@ -38,7 +38,7 @@ export default function OurStory() {
               <Link href="/areas-we-serve" className="text-accent underline">View delivery areas</Link>.
             </p>
           </div>
-          <div className="mt-[17px]">
+          <div className="mt-[50px]">
             <Link
               href="/suppliers"
               className="inline-flex items-center gap-3 rounded-[50px] px-[30px] py-4 text-base leading-6 font-semibold shadow-[var(--shadow-button)] transition-all duration-400 text-white [background:var(--gradient-primary)] hover:[background:var(--gradient-black)]"

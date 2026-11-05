@@ -83,7 +83,7 @@ export default function Footer() {
 
               <Link
                 href="/products"
-                className="mt-7 flex w-fit items-center gap-3 rounded-full bg-[radial-gradient(at_50%_100%,white,var(--color-btn-mid),white)] px-[30px] py-4 text-base font-bold leading-6 text-footer shadow-[var(--shadow-button)] transition-[transform,color] duration-500 hover:-translate-y-[5px] hover:text-white hover:[background-image:var(--gradient-primary)] hover:shadow-[var(--shadow-button-inset)]"
+                className="mt-7 flex w-fit items-center gap-3 rounded-full px-[30px] py-4 text-base font-bold leading-6 text-footer shadow-[var(--shadow-button)] transition-all duration-500 [background:var(--gradient-white-footer)]   hover:text-white hover:[background:var(--gradient-primary)] hover:shadow-[var(--shadow-button-inset)]"
               >
                 View Products
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">

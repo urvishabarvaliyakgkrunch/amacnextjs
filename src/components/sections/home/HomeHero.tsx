@@ -22,8 +22,8 @@ export default function HomeHero() {
         <Image src={`${UPLOADS}/2026/05/Star-1.png`} alt="" width={50} height={50} className="absolute top-[35%] left-[10%] max-md:hidden lg:left-[18%]" />
         <Image src={`${UPLOADS}/2026/05/Star-1.png`} alt="" width={22} height={22} className="absolute top-[45%] right-[14%] max-md:hidden" />
 
-        <div className="relative mx-auto flex w-full flex-col items-center px-5 pt-[209px] text-center md:w-[602px] md:px-0 md:pt-[130px] lg:w-[940px]">
-          <p className="mb-5 flex items-center gap-2 text-sm font-semibold text-eyebrow-hero">
+        <div className="relative mx-auto flex w-full flex-col items-center px-5 pt-[209px] text-center md:w-[602px] md:px-0 md:pt-[180px] lg:w-[940px]">
+          <p className="mb-5 flex items-center gap-2 font-[family-name:var(--font-lato)] text-sm font-semibold text-[#22282b]">
             <span className="size-2.5 rounded-full bg-primary" aria-hidden="true" />
             Serving East Cork Farmers Since 2006
           </p>

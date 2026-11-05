@@ -29,7 +29,7 @@ export default function Newsletter({
           <h2 className="text-white">{title}</h2>
           <p className="max-w-[700px] text-base leading-[26.4px] text-white">{subtitle}</p>
 
-          <form className="mt-8 flex w-full max-w-[557px] flex-col min-[480px]:flex-row min-[480px]:items-center min-[480px]:justify-between min-[480px]:rounded-[50px] min-[480px]:border min-[480px]:border-white min-[480px]:bg-white/[0.28] min-[480px]:px-5 min-[480px]:py-[15px] md:mt-[58px]">
+          <form className="mt-8 flex w-full max-w-[380px] items-center justify-between gap-2 rounded-[50px] border border-white bg-white/[0.28] py-[3px] pr-[3px] pl-5 md:mt-[50px] mb-[24px]">
             <label htmlFor="newsletter-email" className="sr-only">
               Email address
             </label>
@@ -38,11 +38,11 @@ export default function Newsletter({
               type="email"
               required
               placeholder="Enter your email address"
-              className="h-14 w-full flex-1 rounded-[30px] border border-white bg-white/[0.28] px-5 text-base text-white placeholder:text-white/70 focus:outline-none min-[480px]:h-6 min-[480px]:border-0 min-[480px]:bg-transparent min-[480px]:px-0"
+              className="h-6 min-w-0 flex-1 border-0 bg-transparent p-0 text-base text-white placeholder:text-white focus:outline-none"
             />
             <button
               type="submit"
-              className="mt-3 w-full shrink-0 rounded-[30px] bg-white px-6 py-[12px] text-base font-bold uppercase text-[color:var(--color-primary)] transition-colors hover:bg-[color:var(--color-bg-alt)] min-[480px]:mt-0 min-[480px]:w-auto"
+              className="h-12 min-w-[141px] shrink-0 rounded-[30px] border border-white bg-white px-6 text-base font-bold text-[color:var(--color-primary)] transition-colors hover:bg-primary uppercase hover:text-white"
             >
               Subscribe
             </button>

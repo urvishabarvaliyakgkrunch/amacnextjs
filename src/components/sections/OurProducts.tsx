@@ -1,10 +1,22 @@
+// src/components/sections/OurProducts.tsx
 import Link from "next/link";
-// src/components/sections/home/WhatWeSupply.tsx
 import { MAX_WIDTH, SIDE_PADDING } from "@/components/layout/layout-classes";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
-import { HOME_PRODUCTS } from "./home-data";
+import { HOME_PRODUCTS } from "./home/home-data";
 
-export default function WhatWeSupply() {
+type Props = {
+  eyebrow?: string;
+  title?: string;
+  products?: typeof HOME_PRODUCTS;
+  showButton?: boolean;
+};
+
+export default function OurProducts({
+  eyebrow = "OUR PRODUCTS",
+  title = "What We Supply",
+  products = HOME_PRODUCTS,
+  showButton = true,
+}: Props) {
   return (
     <section
       className={`bg-cover bg-bottom bg-no-repeat py-10 md:py-[60px] lg:pt-[120px] lg:pb-[95px] ${SIDE_PADDING}`}
@@ -12,12 +24,12 @@ export default function WhatWeSupply() {
     >
       <div className={`${MAX_WIDTH} flex flex-col gap-[30px] lg:gap-[58px]`}>
         <div className="text-center">
-          <SectionEyebrow label="OUR PRODUCTS" />
-          <h2 className="text-black max-md:text-[30px] max-md:leading-[38px]">What We Supply</h2>
+          <SectionEyebrow label={eyebrow} />
+          <h2 className="text-black max-md:text-[30px] max-md:leading-[38px]">{title}</h2>
         </div>
 
         <div className="grid grid-cols-1 min-[881px]:auto-rows-fr gap-[15px] min-[768px]:max-[880px]:grid-cols-2 min-[881px]:grid-cols-3 min-[881px]:gap-5">
-          {HOME_PRODUCTS.map((product) => (
+          {products.map((product, index) => (
             <div
               key={product.title}
               className="group relative isolate flex flex-col overflow-hidden rounded-xl bg-white bg-cover bg-center gap-5 p-5 lg:p-8"
@@ -29,7 +41,7 @@ export default function WhatWeSupply() {
               />
               <span
                 aria-hidden="true"
-                className="block shrink-0 bg-current text-icon-dark transition-colors duration-300 group-hover:text-white"
+                className="mb-[7px] block shrink-0 bg-current text-icon-dark transition-colors duration-300 group-hover:text-white"
                 style={{
                   width: product.iconSize,
                   height: product.iconSize,
@@ -42,11 +54,11 @@ export default function WhatWeSupply() {
                 }}
               />
               <h4 className="font-sans text-xl leading-5 font-semibold text-black transition-colors duration-300 group-hover:text-white">{product.title}</h4>
-              <p className="text-base leading-[26.4px] transition-colors duration-300 group-hover:text-white">{product.text}</p>
+              <p className={`text-base leading-[26.4px] transition-colors duration-300 group-hover:text-white ${index > 2 ? "pb-[13.2px]" : ""}`}>{product.text}</p>
               {product.href ? (
                 <Link
                   href={product.href}
-                  className="inline-flex items-center gap-[15px] text-accent transition-colors duration-300 group-hover:text-white after:absolute after:inset-0"
+                  className="inline-flex items-center gap-[15px] leading-[26.4px] text-accent transition-colors duration-300 group-hover:text-white after:absolute after:inset-0"
                 >
                   Learn more<span className="sr-only"> about {product.linkLabel ?? product.title}</span>
                   <svg width="17" height="12" viewBox="0 0 17 12" fill="none" aria-hidden="true" className="transition-transform duration-300 group-hover:-rotate-30">
@@ -61,7 +73,7 @@ export default function WhatWeSupply() {
           ))}
         </div>
 
-        <div className="flex justify-center">
+        {showButton && <div className="flex justify-center">
           <Link
             href="/products"
             className="inline-flex items-center gap-3 rounded-[50px] px-[30px] py-4 text-base leading-6 font-semibold shadow-[var(--shadow-button)] transition-all duration-400 text-white [background:var(--gradient-primary)] hover:[background:var(--gradient-black)]"
@@ -76,7 +88,7 @@ export default function WhatWeSupply() {
               />
             </svg>
           </Link>
-        </div>
+        </div>}
       </div>
     </section>
   );
