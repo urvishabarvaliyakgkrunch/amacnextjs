@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import PageHero from "@/components/sections/PageHero";
 import StockGrid from "@/components/sections/StockGrid";
 import InfoSplitSection from "@/components/sections/InfoSplitSection";
+import OurProducts from "@/components/sections/OurProducts";
 import Newsletter from "@/components/sections/Newsletter";
 import { SILAGE_STOCK, SILAGE_INFO } from "@/components/products/pages/silage-data";
 
@@ -16,6 +17,7 @@ export default function SilageBalePlasticNettingPage() {
   return (
     <>
       <PageHero
+        tall
         title="Silage Bale Plastic & Netting, East Cork"
         subtitle="When the mowers are out, you need wrap and netting ready to go. AMAC stocks silage bale plastic, wrap and netting from Zeus and Barbier, on the shelf for the East Cork silage season."
         image="https://amac.ie/wp-content/uploads/2026/06/ChatGPT-Image-Jun-1-2026-06_03_43-PM.webp"
@@ -33,6 +35,8 @@ export default function SilageBalePlasticNettingPage() {
         image="https://amac.ie/wp-content/uploads/2026/07/fxobcter2kgoqo9fzjnm-1030x687.webp"
         cards={SILAGE_INFO}
       />
+
+      <OurProducts />
 
       <Newsletter
         title="Talk to the team"

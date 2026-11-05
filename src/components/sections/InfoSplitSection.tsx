@@ -24,29 +24,27 @@ export default function InfoSplitSection({ image, heading, paragraph, cards }: I
     >
       <div className="mx-auto flex max-w-[1468px] flex-col gap-[30px] lg:flex-row lg:gap-[68px]">
         {image ? (
-          <div className="relative aspect-square lg:w-1/2">
-            <Image src={image} alt="" fill className="rounded-2xl object-cover" sizes="(min-width: 1024px) 50vw, 100vw" />
+          <div className="relative min-h-[300px] overflow-hidden rounded-[10px] sm:min-h-[450px] lg:min-h-[600px] lg:w-[calc(50%-34px)] lg:shrink-0">
+            <Image src={image} alt="" fill className="object-cover" sizes="(min-width: 1024px) 50vw, 100vw" />
           </div>
         ) : null}
 
-        <div className={`flex flex-col justify-center gap-5 ${image ? "lg:w-1/2" : "lg:ml-auto lg:w-[58%]"}`}>
+        <div className={`flex flex-col justify-center gap-12 ${image ? "lg:w-[calc(50%-34px)]" : "lg:ml-auto lg:w-[58%]"}`}>
           {heading || paragraph ? (
             <div>
-              {heading ? <h2 className="text-white max-md:text-[30px] max-md:leading-[38px]">{heading}</h2> : null}
-              {paragraph ? <p className="mt-2.5 max-w-[700px] text-white">{paragraph}</p> : null}
+              {heading ? <h3 className="text-[36px] leading-[40px] font-bold text-white max-md:text-[28px] max-md:leading-[34px]">{heading}</h3> : null}
+              {paragraph ? <p className="mt-[33.6px] mb-[13.6px] max-w-[700px] leading-[26.4px] text-white">{paragraph}</p> : null}
             </div>
           ) : null}
 
           <div className="flex flex-col gap-5">
             {cards.map((card) => (
-              <div key={card.title} className="flex flex-col gap-2.5 rounded-xl bg-white p-[30px]">
-                <span
-                  aria-hidden="true"
-                  className="block h-[50px] w-[50px] shrink-0 [&_svg]:h-full [&_svg]:w-full"
-                  dangerouslySetInnerHTML={{ __html: card.svg }}
-                />
-                <h4 className="font-sans text-xl leading-6 font-semibold text-black">{card.title}</h4>
-                <p className="text-base leading-[26.4px] text-[color:var(--color-muted)]">{card.text}</p>
+              <div key={card.title} className="group flex flex-col gap-[30px] rounded-xl bg-white p-[30px] transition-colors duration-300 hover:bg-primary sm:flex-row">
+                <div aria-hidden="true" className="shrink-0 leading-[26.4px] [&_svg]:inline [&_svg]:align-baseline group-hover:[&_[fill]:not([fill=none])]:fill-white group-hover:[&_[stroke]:not([stroke=none])]:stroke-white" dangerouslySetInnerHTML={{ __html: card.svg }} />
+                <div className="flex flex-col gap-2.5">
+                  <h4 className="font-sans text-xl leading-5 font-semibold text-black transition-colors duration-300 group-hover:text-white">{card.title}</h4>
+                  <p className="mt-[13.6px] text-base leading-[26.4px] text-[color:var(--color-muted)] transition-colors duration-300 group-hover:text-white">{card.text}</p>
+                </div>
               </div>
             ))}
           </div>

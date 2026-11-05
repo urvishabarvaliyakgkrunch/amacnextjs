@@ -7,6 +7,7 @@ import { HOME_PRODUCTS } from "./home/home-data";
 type Props = {
   eyebrow?: string;
   title?: string;
+  subtitle?: string;
   products?: typeof HOME_PRODUCTS;
   showButton?: boolean;
 };
@@ -15,6 +16,7 @@ export default function OurProducts({
   eyebrow = "OUR PRODUCTS",
   title = "What We Supply",
   products = HOME_PRODUCTS,
+  subtitle ="",
   showButton = true,
 }: Props) {
   return (
@@ -26,6 +28,7 @@ export default function OurProducts({
         <div className="text-center">
           <SectionEyebrow label={eyebrow} />
           <h2 className="text-black max-md:text-[30px] max-md:leading-[38px]">{title}</h2>
+          {subtitle && <p>{subtitle}</p> }
         </div>
 
         <div className="grid grid-cols-1 min-[881px]:auto-rows-fr gap-[15px] min-[768px]:max-[880px]:grid-cols-2 min-[881px]:grid-cols-3 min-[881px]:gap-5">

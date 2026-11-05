@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import PageHero from "@/components/sections/PageHero";
 import StockGrid from "@/components/sections/StockGrid";
 import InfoSplitSection from "@/components/sections/InfoSplitSection";
+import OurProducts from "@/components/sections/OurProducts";
 import Newsletter from "@/components/sections/Newsletter";
 import { FUEL_STOCK, FUEL_INFO } from "@/components/products/pages/solid-fuel-data";
 
@@ -16,6 +17,7 @@ export default function SolidFuelDepotPage() {
   return (
     <>
       <PageHero
+        tall
         title="Solid Fuel Depot, Midleton"
         subtitle="Our Solid Fuel Depot keeps homes warm across East Cork. We stock smokeless coal, hardwood and softwood timber, with delivery across Midleton, Cork City and Youghal. Our ash, birch and oak hardwood is available in 22-litre net bags and 1.2 m³ crates."
         image="https://amac.ie/wp-content/uploads/2026/06/ChatGPT-Image-Jun-1-2026-06_08_06-PM.webp"
@@ -26,7 +28,7 @@ export default function SolidFuelDepotPage() {
         title="What we stock"
         subtitle="Reliable solid fuel for homes and businesses across East Cork."
         cards={FUEL_STOCK}
-        columns={4}
+        columns={3}
       />
 
       <InfoSplitSection
@@ -35,6 +37,8 @@ export default function SolidFuelDepotPage() {
         paragraph="Choose from smokeless coal, hardwood and softwood timber, available in convenient bags and crates. Our team can advise on current stock and arrange delivery across the local area."
         cards={FUEL_INFO}
       />
+
+      <OurProducts />
 
       <Newsletter
         title="Talk to the team"

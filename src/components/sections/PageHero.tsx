@@ -1,5 +1,6 @@
 // src/components/sections/PageHero.tsx
 import Image from "next/image";
+import Link from "next/link";
 
 type PageHeroProps = {
   title: string;
@@ -7,11 +8,19 @@ type PageHeroProps = {
   image: string;
   // Category archives on live use a flat dark-green tint instead of the gradient
   solidOverlay?: boolean;
+  // Inline link appended to the subtitle (live: "View delivery areas")
+  link?: { label: string; href: string };
+  // Product sub-pages: live hero is 530px below the top bar, content centred under a 140px header gap
+  tall?: boolean;
 };
 
-export default function PageHero({ title, subtitle, image, solidOverlay }: PageHeroProps) {
+export default function PageHero({ title, subtitle, image, solidOverlay, link, tall }: PageHeroProps) {
   return (
-    <section className="relative flex min-h-[400px] items-center justify-center overflow-hidden lg:min-h-[490px]">
+    <section
+      className={`relative flex min-h-[400px] items-center justify-center overflow-hidden ${
+        tall ? "lg:min-h-[570px] lg:pt-[140px]" : "lg:min-h-[490px]"
+      }`}
+    >
       <Image
         src={image}
         alt=""
@@ -28,12 +37,22 @@ export default function PageHero({ title, subtitle, image, solidOverlay }: PageH
             : { backgroundImage: "linear-gradient(180deg, #000000 0%, #466b20 100%)", opacity: 0.4 }
         }
       />
-      <div className="relative mx-auto flex max-w-[1680px] flex-col items-center px-4 pt-[100px] pb-0 text-center sm:px-6 md:pb-[50px] lg:px-20">
+      <div className={`relative mx-auto flex max-w-[1680px] flex-col items-center px-4 pt-[118px] pb-0 text-center sm:px-6 md:pb-[50px] lg:px-20 ${tall ? "lg:py-0" : ""}`}>
         <h1 className="text-white">{title}</h1>
         {subtitle ? (
-          <div className="mt-4 max-w-[700px] space-y-4 font-semibold text-white">
+          <div className="mt-[33px] flex max-w-[700px] flex-col gap-[13.6px] font-semibold leading-[26.4px] text-white">
             {(Array.isArray(subtitle) ? subtitle : [subtitle]).map((line) => (
-              <p key={line}>{line}</p>
+              <p key={line}>
+                {line}
+                {link ? (
+                  <>
+                    {" "}
+                    <Link href={link.href} className="underline">
+                      {link.label}
+                    </Link>
+                  </>
+                ) : null}
+              </p>
             ))}
           </div>
         ) : null}
