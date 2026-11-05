@@ -17,7 +17,7 @@ export default function HeroStats() {
             <div className="flex h-[47px] items-center lg:h-[71px]"><Image src={stat.icon} alt="" width={64} height={64} className="" /></div>
             <div>
               <h3 className="mb-2.5 font-heading text-[20px] leading-6 font-black text-hero-ink">{stat.title}</h3>
-              <p className="text-sm leading-4 text-hero-muted">{stat.text}</p>
+              <p className="text-[16px] leading-4 text-hero-muted">{stat.text}</p>
             </div>
           </div>
         ))}

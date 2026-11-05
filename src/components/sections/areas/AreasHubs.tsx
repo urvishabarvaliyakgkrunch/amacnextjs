@@ -9,7 +9,7 @@ export default function AreasHubs() {
   return (
     <>
       <section
-        className={`bg-card-bg py-10 md:py-[60px] ${SIDE_PADDING}`}
+        className={`bg-card-bg py-10 md:py-[110px] ${SIDE_PADDING}`}
       >
         <div className={MAX_WIDTH}>
           <div className="text-center">

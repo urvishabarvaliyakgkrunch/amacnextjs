@@ -26,7 +26,7 @@ export default function PageHero({ title, subtitle, image, solidOverlay, link, t
         alt=""
         fill
         priority
-        className="object-cover object-center"
+        className="object-cover object-[bottom_center]"
         sizes="100vw"
       />
       <div
