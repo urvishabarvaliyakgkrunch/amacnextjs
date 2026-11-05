@@ -8,7 +8,7 @@ export type StockCardData = {
   svg: string;
   image?: string;
   // live only adds a 13.6px gap above the text on some cards (editor margin quirk)
-  pGap?: boolean;
+  pGap?: boolean | number;
 };
 
 type StockGridProps = {
@@ -46,7 +46,7 @@ export default function StockGrid({ eyebrow, title, subtitle, cards, columns = 4
           {cards.map((card) => (
             <div
               key={card.title}
-              className="group relative isolate flex flex-col overflow-hidden rounded-xl bg-white bg-cover bg-center gap-5 p-5 lg:p-8"
+              className="group relative isolate flex flex-col overflow-hidden rounded-xl bg-white bg-cover bg-center gap-5 p-5 shadow-[0_0_10px_0_rgba(0,0,0,0.2)] min-[1025px]:p-8"
               style={card.image ? { backgroundImage: `url(${card.image})` } : undefined}
             >
               <span
@@ -54,11 +54,11 @@ export default function StockGrid({ eyebrow, title, subtitle, cards, columns = 4
                 className={`absolute inset-0 -z-10 bg-white transition-all duration-300 group-hover:bg-primary ${card.image ? "group-hover:opacity-80" : ""}`}
               />
               {/* natural svg size in a text line box, like live (52px wrapper for a 45px icon) */}
-              <div aria-hidden="true" className="leading-[26.4px] transition-all [&_svg]:inline [&_svg]:align-baseline group-hover:[&_[fill]:not([fill=none])]:fill-white group-hover:[&_[stroke]:not([stroke=none])]:stroke-white" dangerouslySetInnerHTML={{ __html: card.svg }} />
+              <div aria-hidden="true" className="leading-[26.4px] transition-all fill-primary [&_svg]:inline [&_svg]:align-baseline group-hover:[&_[fill]:not([fill=none])]:fill-white group-hover:[&_[stroke]:not([stroke=none])]:stroke-white" dangerouslySetInnerHTML={{ __html: card.svg }} />
               <h4 className="font-sans text-xl leading-5 font-semibold text-black transition-colors duration-300 group-hover:text-white">
                 {card.title}
               </h4>
-              <p className={`${card.pGap ? "mt-[13.6px]" : ""} text-base leading-[26.4px] text-[color:var(--color-muted)] transition-colors duration-300 group-hover:text-white`}>
+              <p style={card.pGap ? { marginTop: card.pGap === true ? 13.6 : card.pGap } : undefined} className="text-base leading-[26.4px] text-[color:var(--color-muted)] transition-colors duration-300 group-hover:text-white">
                 {card.text}
               </p>
             </div>

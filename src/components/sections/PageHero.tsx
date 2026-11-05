@@ -12,12 +12,16 @@ type PageHeroProps = {
   link?: { label: string; href: string };
   // Product sub-pages: live hero is 530px below the top bar, content centred under a 140px header gap
   tall?: boolean;
+  // Blog posts: live keeps h1 at 40/50px below 1367px and starts it 120px under the hero top on mobile
+  post?: boolean;
 };
 
-export default function PageHero({ title, subtitle, image, solidOverlay, link, tall }: PageHeroProps) {
+export default function PageHero({ title, subtitle, image, solidOverlay, link, tall, post }: PageHeroProps) {
   return (
     <section
       className={`relative flex min-h-[400px] items-center justify-center overflow-hidden ${
+        post ? "max-md:items-start" : "pt-[70px] pb-[50px] md:py-0"
+      } ${
         tall ? "lg:min-h-[570px] lg:pt-[140px]" : "lg:min-h-[490px]"
       }`}
     >
@@ -37,8 +41,8 @@ export default function PageHero({ title, subtitle, image, solidOverlay, link, t
             : { backgroundImage: "linear-gradient(180deg, #000000 0%, #466b20 100%)", opacity: 0.4 }
         }
       />
-      <div className={`relative mx-auto flex max-w-[1680px] flex-col items-center px-4 pt-[118px] pb-0 text-center sm:px-6 md:pb-[50px] lg:px-20 ${tall ? "lg:py-0" : ""}`}>
-        <h1 className="text-white">{title}</h1>
+      <div className={`relative mx-auto flex max-w-[1680px] flex-col items-center px-4 pt-[118px] pb-0 text-center sm:px-6 md:pb-[50px] lg:px-20 ${tall ? "lg:py-0" : ""} ${post ? "max-md:pt-[120px]" : ""}`}>
+        <h1 className={`text-white ${post ? "text-[40px] leading-[50px] min-[1367px]:text-[58px] min-[1367px]:leading-[63.8px]" : "text-[34px] md:text-[40px]"}`}>{title}</h1>
         {subtitle ? (
           <div className="mt-[33px] flex max-w-[700px] flex-col gap-[13.6px] font-semibold leading-[26.4px] text-white">
             {(Array.isArray(subtitle) ? subtitle : [subtitle]).map((line) => (

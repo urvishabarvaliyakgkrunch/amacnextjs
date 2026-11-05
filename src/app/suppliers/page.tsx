@@ -20,7 +20,7 @@ export default function SuppliersPage() {
       />
       <PartnershipSection />
       <OurSuppliers />
-      <Newsletter />
+      <Newsletter title="Brands We Work With" />
     </>
   );
 }

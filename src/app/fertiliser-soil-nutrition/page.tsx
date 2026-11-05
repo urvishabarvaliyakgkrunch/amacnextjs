@@ -39,7 +39,7 @@ export default function FertiliserSoilNutritionPage() {
         cards={FERTILISER_INFO}
       />
 
-      <OurProducts />
+      {/* <OurProducts /> */}
 
       <Newsletter />
     </>

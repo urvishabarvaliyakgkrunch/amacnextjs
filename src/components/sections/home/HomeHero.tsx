@@ -10,7 +10,7 @@ export default function HomeHero() {
   return (
     <>
       <section
-        className="relative overflow-hidden bg-hero-sky max-md:min-h-[calc(520px+100vw*1610/4200)] md:min-h-[calc(100vw*2620/4200)] md:bg-cover md:bg-top md:bg-no-repeat md:[background-image:var(--hero-desktop)]"
+        className="relative overflow-hidden bg-hero-sky max-md:min-h-[100vh] md:min-h-[100vh] md:bg-cover md:bg-top md:bg-no-repeat md:[background-image:var(--hero-desktop)]"
         style={{ "--hero-desktop": `url(${UPLOADS}/2026/10/Yard-2-Homepage-Desktop-v2.webp)` } as React.CSSProperties}
       >
         <div

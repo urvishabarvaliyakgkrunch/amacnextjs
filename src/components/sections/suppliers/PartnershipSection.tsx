@@ -7,10 +7,10 @@ const ICONS = "/icons/about";
 
 // Icons borrowed from the About page set until the Suppliers-page SVGs are exported
 const COMMITMENTS: FeatureCardData[] = [
-  { title: "Quality Assurance", icon: `${ICONS}/values-quality.svg`, text: "All our suppliers meet strict quality standards to ensure safe and effective solutions." },
-  { title: "Long-Term Partnerships", icon: `${ICONS}/why-partnership.svg`, text: "We build trusted relationships based on reliability, transparency, and shared growth." },
-  { title: "Sustainable Focus", icon: `${ICONS}/values-growth.svg`, text: "Our partners share our vision for sustainable agriculture and environmental responsibility." },
-  { title: "Innovation Driven", icon: `${ICONS}/why-agronomy.svg`, text: "We collaborate with global leaders to bring innovative solutions to our customers." },
+  { title: "Quality Assurance", icon: `${ICONS}/quality.svg`, text: "All our suppliers meet strict quality standards to ensure safe and effective solutions." },
+  { title: "Long-Term Partnerships", icon: `${ICONS}/leadership.svg`, text: "We build trusted relationships based on reliability, transparency, and shared growth." },
+  { title: "Sustainable Focus", icon: `${ICONS}/sustainable.svg`, text: "Our partners share our vision for sustainable agriculture and environmental responsibility." },
+  { title: "Innovation Driven", icon: `${ICONS}/innovation.svg`, text: "We collaborate with global leaders to bring innovative solutions to our customers." },
 ];
 
 export default function PartnershipSection() {
@@ -27,11 +27,11 @@ export default function PartnershipSection() {
             We work with established suppliers across fertiliser, seed, crop protection, animal feed and farm essentials. We choose products for quality, reliability and suitability for local conditions. We’ll help you select what fits your farm.
           </p>
         </div>
-        <div className="mx-auto mt-8 grid max-w-[1290px] grid-cols-1 gap-[25px] sm:grid-cols-2 md:mt-[50px] xl:grid-cols-4">
+        <div className="mx-auto mt-8 grid max-w-[1580px] grid-cols-1 gap-[25px] sm:grid-cols-2 md:mt-[50px] xl:grid-cols-4">
           {COMMITMENTS.map((card) => (
             <div
               key={card.title}
-              className={`group flex h-full flex-col items-center rounded-[10px] bg-white p-5 text-center transition-colors duration-300 hover:bg-primary border border-card-border`}
+              className={`group flex h-full flex-col items-center rounded-[10px] bg-white p-[30px] text-center transition-colors duration-300 hover:bg-primary border border-card-border`}
             >
               <span
                 aria-hidden="true"

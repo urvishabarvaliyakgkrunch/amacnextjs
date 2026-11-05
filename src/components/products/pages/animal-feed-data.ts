@@ -74,6 +74,7 @@ export const FEED_SUPPLY = [
   },
   {
     title: "Bagged feed",
+    pGap: 9,
     image: "https://amac.ie/wp-content/uploads/2026/06/508703846_3470143139783538_390992848943187867_n-495x400.webp",
     text: "Delivered on our own AMAC lorries.",
     svg: `<svg xmlns="http://www.w3.org/2000/svg" width="58" height="58" viewBox="0 0 55 58" fill="none">

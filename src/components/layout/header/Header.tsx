@@ -4,7 +4,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { LOGO_URL, NAV_LINKS, SITE } from "../nav-links";
 import { MAX_WIDTH, SIDE_PADDING } from "../layout-classes";
 import DesktopNav from "./DesktopNav";
@@ -21,9 +21,56 @@ type HeaderBarProps = {
   menuOpen: boolean;
   onToggleMenu: () => void;
   onCloseMenu: () => void;
+  onOpenSearch: () => void;
 };
 
-function HeaderBar({ compact, light, menuOpen, onToggleMenu, onCloseMenu }: HeaderBarProps) {
+function SearchOverlay({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    inputRef.current?.focus();
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open, onClose]);
+
+  if (!open) return null;
+
+  return (
+    <div role="dialog" aria-modal="true" aria-label="Search" className="fixed inset-0 z-[100]" onClick={onClose}>
+      <form
+        action="/"
+        method="get"
+        role="search"
+        onClick={(e) => e.stopPropagation()}
+        className="flex items-center justify-center gap-2 bg-white px-3 py-4 min-[768px]:gap-3 min-[768px]:px-4 min-[768px]:py-[18px] shadow-[0_2px_6px_rgba(0,0,0,0.3)]"
+      >
+        <div className="flex h-12 min-w-0 flex-1 items-center gap-2 rounded-full border border-black bg-white px-4 min-[768px]:h-14 min-[768px]:max-w-[560px] min-[768px]:px-5">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" className="shrink-0 text-[#6b6b6b]">
+            <circle cx="10.5" cy="10.5" r="7" stroke="currentColor" strokeWidth="2.6" />
+            <path d="m16 16 5.5 5.5" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" />
+          </svg>
+          <input
+            ref={inputRef}
+            type="search"
+            name="s"
+            placeholder="Search..."
+            className="min-w-0 flex-1 bg-transparent text-base text-black outline-none placeholder:text-[#757575]"
+          />
+        </div>
+        <button
+          type="submit"
+          className="h-11 shrink-0 rounded-full border border-black px-4 text-sm min-[768px]:h-[52px] min-[768px]:px-7 min-[768px]:text-base uppercase text-black transition-colors duration-300 hover:border-primary hover:bg-primary hover:text-white"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+  );
+}
+
+function HeaderBar({ compact, light, menuOpen, onToggleMenu, onCloseMenu, onOpenSearch }: HeaderBarProps) {
   return (
     <div className={`relative ${SIDE_PADDING}`}>
       {/* Sticky bar centres the nav on the viewport (3-col grid); the top state just spreads items apart */}
@@ -82,6 +129,7 @@ function HeaderBar({ compact, light, menuOpen, onToggleMenu, onCloseMenu }: Head
           <button
             type="button"
             aria-label="Search"
+            onClick={onOpenSearch}
             className={`flex h-9 w-[26px] items-center justify-center min-[1201px]:w-[31px] ${light ? "text-white" : "text-ink-dark"}`}
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -109,13 +157,13 @@ function TopBar() {
         className={`${MAX_WIDTH} flex flex-wrap items-center justify-center gap-2.5 py-3 text-sm leading-[18px] min-[768px]:flex-col min-[768px]:text-xs min-[881px]:flex-row min-[881px]:justify-between min-[881px]:text-sm`}
       >
         <span className="text-center">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="mr-2 inline align-[-2px]">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="mr-2 inline align-[-2px]">
             <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z" />
           </svg>
           {SITE.address}
         </span>
         <a href={SITE.phoneHref} className="flex items-center gap-2 transition-opacity duration-300 hover:opacity-80">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="shrink-0">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="shrink-0">
             <path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1L6.6 10.8Z" />
           </svg>
           {SITE.phone}
@@ -138,6 +186,10 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const [searchOpen, setSearchOpen] = useState(false);
+  const openSearch = () => setSearchOpen(true);
+  const closeSearch = useCallback(() => setSearchOpen(false), []);
+
   const closeMenu = () => setMenuOpen(false);
   const toggleMenu = () => setMenuOpen((open) => !open);
 
@@ -151,8 +203,10 @@ export default function Header() {
           menuOpen={menuOpen && !isStuck}
           onToggleMenu={toggleMenu}
           onCloseMenu={closeMenu}
+          onOpenSearch={openSearch}
         />
       </header>
+      <SearchOverlay open={searchOpen} onClose={closeSearch} />
 
       <div
         aria-hidden={!isStuck}
@@ -160,7 +214,7 @@ export default function Header() {
           isStuck ? "translate-y-0" : "invisible -translate-y-full"
         }`}
       >
-        <HeaderBar compact light={false} menuOpen={menuOpen && isStuck} onToggleMenu={toggleMenu} onCloseMenu={closeMenu} />
+        <HeaderBar compact light={false} menuOpen={menuOpen && isStuck} onToggleMenu={toggleMenu} onCloseMenu={closeMenu} onOpenSearch={openSearch} />
       </div>
     </>
   );

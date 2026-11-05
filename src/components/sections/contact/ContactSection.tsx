@@ -7,7 +7,7 @@ import InfoCards from "./InfoCards";
 export default function ContactSection() {
   return (
     <section className={`py-10 md:py-[90px] ${SIDE_PADDING}`}>
-      <div className={`${MAX_WIDTH} grid grid-cols-1 items-start gap-10 lg:grid-cols-[1fr_58%] lg:gap-[70px]`}>
+      <div className={`${MAX_WIDTH} grid grid-cols-1 items-start gap-10 min-[1025px]:grid-cols-[1fr_58%] min-[1025px]:gap-[70px]`}>
         <ContactIntro />
         <ContactForm />
       </div>

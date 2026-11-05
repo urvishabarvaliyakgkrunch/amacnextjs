@@ -27,7 +27,9 @@ export default function Newsletter({
 
         <div className="relative flex flex-col items-center gap-2.5 px-4 py-10 text-center sm:px-6 md:pt-[90px] md:pb-20">
           <h2 className="text-white">{title}</h2>
-          <p className="max-w-[700px] text-base leading-[26.4px] text-white">{subtitle}</p>
+          {subtitle && 
+            <p className="max-w-[700px] text-base leading-[26.4px] text-white">{subtitle}</p>
+          }
 
           <form className="mt-8 flex w-full max-w-[380px] items-center justify-between gap-2 rounded-[50px] border border-white bg-white/[0.28] py-[3px] pr-[3px] pl-5 md:mt-[50px] mb-[24px]">
             <label htmlFor="newsletter-email" className="sr-only">
