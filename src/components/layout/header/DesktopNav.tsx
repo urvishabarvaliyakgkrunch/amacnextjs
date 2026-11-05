@@ -3,6 +3,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import type { NavLink } from "../nav-links";
 
 type DesktopNavProps = {
@@ -20,25 +21,40 @@ function isCurrent(pathname: string, link: NavLink) {
 export default function DesktopNav({ links, variant }: DesktopNavProps) {
   const pathname = usePathname();
   const isPill = variant === "pill";
+  const [openLabel, setOpenLabel] = useState<string | null>(null);
+
+  // Hover-based dropdowns don't know a route changed, so without this a submenu item's own
+  // page loads underneath the still-open dropdown until the mouse happens to move away.
+  useEffect(() => {
+    setOpenLabel(null);
+  }, [pathname]);
 
   return (
     <nav className={`flex items-center ${isPill ? "rounded-full bg-nav-pill p-1" : ""}`}>
       {links.map((link) => {
         const hasChildren = Boolean(link.children?.length);
         const current = isCurrent(pathname, link);
+        const isOpen = openLabel === link.label;
 
         const stateClass = isPill
-          ? `px-6 hover:bg-white hover:text-black group-hover:bg-white group-hover:text-black ${
+          ? `px-6 hover:bg-white hover:text-black ${isOpen ? "bg-white text-black" : ""} ${
               current ? "bg-white text-black" : "text-white"
             }`
-          : `px-2 min-[1201px]:px-2.5 min-[1367px]:px-[15px] group-hover:text-primary ${current ? "text-primary" : "text-nav-ink"}`;
+          : `px-2 min-[1201px]:px-2.5 min-[1367px]:px-[15px] ${isOpen ? "text-primary" : ""} ${current ? "text-primary" : "text-nav-ink"}`;
         // Sticky-bar links are 46px tall (15px padding around a 16px line); the pill's are 40px
         const sizeClass = isPill ? "py-2 leading-6" : "py-[15px] leading-4";
 
         return (
-          <div key={link.label} className="group relative">
+          <div
+            key={link.label}
+            className="relative"
+            onMouseEnter={() => hasChildren && setOpenLabel(link.label)}
+            onMouseLeave={() => hasChildren && setOpenLabel((current) => (current === link.label ? null : current))}
+          >
             <Link
               href={link.href}
+              onFocus={() => hasChildren && setOpenLabel(link.label)}
+              onClick={() => setOpenLabel(null)}
               className={`flex items-center gap-2.5 whitespace-nowrap rounded-full text-base transition-colors duration-300 ${sizeClass} ${stateClass}`}
             >
               {link.label}
@@ -51,9 +67,9 @@ export default function DesktopNav({ links, variant }: DesktopNavProps) {
 
             {hasChildren && (
               <div
-                className={`invisible absolute left-0 top-full z-50 opacity-0 transition-opacity duration-300 group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100 ${
-                  isPill ? "pt-[5px]" : "pt-5"
-                }`}
+                className={`absolute left-0 top-full z-50 transition-opacity duration-300 ${
+                  isOpen ? "visible opacity-100" : "invisible opacity-0"
+                } ${isPill ? "pt-[5px]" : "pt-5"}`}
               >
                 <ul
                   className={`w-[220px] overflow-hidden bg-white shadow-[0_4px_10px_-2px_rgba(0,0,0,0.1)] ${
@@ -64,6 +80,7 @@ export default function DesktopNav({ links, variant }: DesktopNavProps) {
                     <li key={child.label}>
                       <Link
                         href={child.href}
+                        onClick={() => setOpenLabel(null)}
                         className="block py-[10px] px-[24px] font-menu text-base leading-5 text-black transition-colors duration-300 hover:text-primary"
                       >
                         {child.label}
