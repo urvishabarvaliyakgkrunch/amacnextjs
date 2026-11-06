@@ -9,9 +9,12 @@ import MeetTheTeam from "@/components/sections/home/MeetTheTeam";
 import OurStory from "@/components/sections/home/OurStory";
 import TechnicalServices from "@/components/sections/home/TechnicalServices";
 import OurProducts from "@/components/sections/OurProducts";
-import { LATEST_POSTS } from "@/components/sections/home/home-data";
+import { getPosts } from "@/lib/queries/post";
 
-export default function Home() {
+export const revalidate = 3600;
+
+export default async function Home() {
+  const posts = await getPosts(4);
   return (
     <>
       <HomeHero />
@@ -22,7 +25,7 @@ export default function Home() {
       <TechnicalServices />
       <OurSuppliers variant="home" />
       <CoverageMap />
-      <LatestPosts posts={LATEST_POSTS} />
+      <LatestPosts posts={posts} />
       <Newsletter />
     </>
   );

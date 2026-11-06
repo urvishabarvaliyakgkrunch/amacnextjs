@@ -45,7 +45,7 @@ export const NAV_LINKS: NavLink[] = [
   {
     label: "News & Advice",
     href: "/blogs",
-    children: [{ label: "Autumn", href: "/blogs?category=autumn" }],
+    children: [{ label: "Autumn", href: "/category/autumn" }],
   },
   { label: "Contact", href: "/contact" },
 ];

@@ -6,3 +6,17 @@ export type PostSummary = {
   excerpt: string;
   image: string;
 };
+
+export type Post = {
+  title: string;
+  slug: string;
+  intro: string[];
+  image: string;
+  imageAlt: string;
+};
+
+export type PostCategory = {
+  title: string;
+  description: string;
+  posts: PostSummary[];
+};
