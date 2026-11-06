@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default function SolidFuelDepotPage() {
   return (
     <>
-      <PageHero
+      <PageHero imagePosition="center"
         tall
         title="Solid Fuel Depot, Midleton"
         subtitle="Our Solid Fuel Depot keeps homes warm across East Cork. We stock smokeless coal, hardwood and softwood timber, with delivery across Midleton, Cork City and Youghal. Our ash, birch and oak hardwood is available in 22-litre net bags and 1.2 m³ crates."

@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function MeetTheTeamPage() {
   return (
     <>
-      <PageHero
+      <PageHero imagePosition="center"
         title="Meet the Team"
         subtitle="The dedicated professionals behind AMAC Farm Supplies, bringing decades of combined agricultural experience to every conversation."
         image="https://amac.ie/wp-content/uploads/2026/08/team2.webp"

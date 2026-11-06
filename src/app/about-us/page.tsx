@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      <PageHero
+      <PageHero imagePosition="center"
         title="About AMAC"
         subtitle="AMAC is a locally owned agricultural supplies business based in Midleton, serving farmers across East Cork and surrounding areas since 2006."
         image="https://amac.ie/wp-content/uploads/2026/08/about-office.webp"

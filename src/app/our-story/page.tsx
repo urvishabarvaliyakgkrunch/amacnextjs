@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function OurStoryPage() {
   return (
     <>
-      <PageHero
+      <PageHero imagePosition="center"
         title="Our Story"
         subtitle="Founded in Midleton in 2006 by Richard McCarthy and Aidan Murphy, AMAC supplies farm essentials, animal feed and solid fuel, backed by practical local advice."
         image="https://amac.ie/wp-content/uploads/2026/08/store.webp"

@@ -37,9 +37,7 @@ export default function DesktopNav({ links, variant }: DesktopNavProps) {
         const isOpen = openLabel === link.label;
 
         const stateClass = isPill
-          ? `px-6 hover:bg-white hover:text-black ${isOpen ? "bg-white text-black" : ""} ${
-              current ? "bg-white text-black" : "text-white"
-            }`
+          ? `px-6 hover:bg-white hover:text-black ${isOpen || current ? "bg-white text-black" : 'text-white'} `
           : `px-2 min-[1201px]:px-2.5 min-[1367px]:px-[15px] ${isOpen ? "text-primary" : ""} ${current ? "text-primary" : "text-nav-ink"}`;
         // Sticky-bar links are 46px tall (15px padding around a 16px line); the pill's are 40px
         const sizeClass = isPill ? "py-2 leading-6" : "py-[15px] leading-4";
@@ -55,7 +53,7 @@ export default function DesktopNav({ links, variant }: DesktopNavProps) {
               href={link.href}
               onFocus={() => hasChildren && setOpenLabel(link.label)}
               onClick={() => setOpenLabel(null)}
-              className={`flex items-center gap-2.5 whitespace-nowrap rounded-full text-base transition-colors duration-300 ${sizeClass} ${stateClass}`}
+              className={`flex items-center gap-2.5 whitespace-nowrap rounded-full text-base transition-colors duration-300  ${sizeClass} ${stateClass}`}
             >
               {link.label}
               {hasChildren && (

@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function BlogsPage() {
   return (
     <>
-      <PageHero
+      <PageHero imagePosition="center"
         title="News and Advice"
         subtitle="Seasonal updates, crop notes and practical information from the AMAC team."
         image="https://amac.ie/wp-content/uploads/2026/08/DM1_4303.webp"

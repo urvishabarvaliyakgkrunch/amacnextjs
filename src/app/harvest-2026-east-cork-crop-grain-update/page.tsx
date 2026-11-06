@@ -9,7 +9,7 @@ export const metadata: Metadata = { title: "Harvest 2026 in East Cork: Crop and 
 export default function HarvestPost() {
   return (
     <>
-      <PageHero title={HARVEST_TITLE} image={HARVEST_HERO} post />
+      <PageHero imagePosition="center" title={HARVEST_TITLE} image={HARVEST_HERO} post />
       <ArticleBody blocks={HARVEST_BLOCKS} />
     </>
   );

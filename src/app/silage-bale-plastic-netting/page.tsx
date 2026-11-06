@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default function SilageBalePlasticNettingPage() {
   return (
     <>
-      <PageHero
+      <PageHero imagePosition="center"
         tall
         title="Silage Bale Plastic & Netting, East Cork"
         subtitle="When the mowers are out, you need wrap and netting ready to go. AMAC stocks silage bale plastic, wrap and netting from Zeus and Barbier, on the shelf for the East Cork silage season."

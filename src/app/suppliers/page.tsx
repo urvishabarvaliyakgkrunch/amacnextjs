@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function SuppliersPage() {
   return (
     <>
-      <PageHero
+      <PageHero imagePosition="center"
         title="Brands We Stock"
         subtitle="Trusted products for local farms, backed by advice from the AMAC team."
         image="https://amac.ie/wp-content/uploads/2026/08/DM1_4410.webp"

@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 export default function AnimalFeedPage() {
   return (
     <>
-      <PageHero
+      <PageHero imagePosition="center"
         tall
         title="Animal Feed Suppliers, East Cork"
         subtitle="AMAC is an authorised feed agent for Grennans and Roches Feed. We supply dairy, beef, sheep and equine rations in bulk or bags, with delivery to your yard."

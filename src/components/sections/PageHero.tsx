@@ -14,9 +14,17 @@ type PageHeroProps = {
   tall?: boolean;
   // Blog posts: live keeps h1 at 40/50px below 1367px and starts it 120px under the hero top on mobile
   post?: boolean;
+  // Focal point of the background image (default: bottom)
+  imagePosition?: "top" | "center" | "bottom";
 };
 
-export default function PageHero({ title, subtitle, image, solidOverlay, link, tall, post }: PageHeroProps) {
+const POSITION_CLASS = {
+  top: "object-[top_center]",
+  center: "object-[center_center]",
+  bottom: "object-[bottom_center]",
+} as const;
+
+export default function PageHero({ title, subtitle, image, solidOverlay, link, tall, post, imagePosition = "bottom" }: PageHeroProps) {
   return (
     <section
       className={`relative flex min-h-[400px] items-center justify-center overflow-hidden ${
@@ -30,7 +38,7 @@ export default function PageHero({ title, subtitle, image, solidOverlay, link, t
         alt=""
         fill
         priority
-        className="object-cover object-[bottom_center]"
+        className={`object-cover ${POSITION_CLASS[imagePosition]}`}
         sizes="100vw"
       />
       <div
@@ -42,7 +50,7 @@ export default function PageHero({ title, subtitle, image, solidOverlay, link, t
         }
       />
       <div className={`relative mx-auto flex max-w-[1680px] flex-col items-center px-4 pt-[118px] pb-0 text-center sm:px-6 md:pb-[50px] lg:px-20 ${tall ? "lg:py-0" : ""} ${post ? "max-md:pt-[120px]" : ""}`}>
-        <h1 className={`text-white ${post ? "text-[34px] leading-[38px] min-[768px]:max-[1200px]:text-[50px] min-[768px]:max-[1200px]:leading-[55px] min-[1201px]:text-[58px] min-[1201px]:leading-[63.8px]" : "text-[34px] md:text-[40px]"}`}>{title}</h1>
+        <h1 className={`text-white ${post ? "text-[34px] leading-[38px] min-[768px]:max-[1200px]:text-[50px] min-[768px]:max-[1200px]:leading-[55px] min-[1201px]:text-[58px] min-[1201px]:leading-[63.8px]" : "text-[34px] md:text-[58px]"}`}>{title}</h1>
         {subtitle ? (
           <div className="mt-[33px] flex max-w-[700px] flex-col gap-[13.6px] font-semibold leading-[26.4px] text-white">
             {(Array.isArray(subtitle) ? subtitle : [subtitle]).map((line) => (

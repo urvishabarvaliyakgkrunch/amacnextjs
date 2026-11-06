@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
-      <PageHero
+      <PageHero imagePosition="top"
         title="Talk to the AMAC Team"
         subtitle="Call, email or send us a message about stock, pricing, delivery or technical advice."
         image="https://amac.ie/wp-content/uploads/2026/08/contact-the-team2.webp"

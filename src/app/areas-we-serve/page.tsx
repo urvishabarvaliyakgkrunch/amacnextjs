@@ -17,7 +17,7 @@ const HERO_TEXT = [
 export default function AreasWeServePage() {
   return (
     <>
-      <PageHero title="Areas We Serve" subtitle={HERO_TEXT} image="https://amac.ie/wp-content/uploads/2026/08/testing.webp" />
+      <PageHero imagePosition="center" title="Areas We Serve" subtitle={HERO_TEXT} image="https://amac.ie/wp-content/uploads/2026/08/testing.webp" />
       <AreasHubs />
       <Newsletter />
     </>
