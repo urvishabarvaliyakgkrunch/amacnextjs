@@ -44,7 +44,7 @@ export default function ArticleBody({ blocks }: { blocks: ArticleBlock[] }) {
                     width={b.image.w}
                     height={400}
                     loading="lazy"
-                    className={`md:float-right w-full md:w-auto md:mb-0 mt-1 md:ml-[10px] h-auto max-w-full ${i === 13 ? "min-[1025px]:mb-[9px]" : "min-[1025px]:mb-[54px]"}`}
+                    className={`md:float-right w-full md:w-auto mt-1 md:ml-[10px] h-auto max-w-full ${i === 13 ? "min-[1025px]:mb-[9px]" : "min-[1025px]:mb-[54px]"}`}
                   />
                 </p>
               ) : null}
