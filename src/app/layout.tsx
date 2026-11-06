@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Inter, Lato, Manrope, Mulish } from "next/font/google";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/header/Header";
+import { getHeaderMenu } from "@/lib/queries/menu";
 import "./globals.css";
 
 const mulish = Mulish({ variable: "--font-mulish", subsets: ["latin"] });
@@ -17,7 +18,9 @@ export const metadata: Metadata = {
   description: "Farm Supplies, Feed & Practical Advice from a Local Team",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const links = await getHeaderMenu();
+
   return (
     <html
       lang="en"
@@ -25,7 +28,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       suppressHydrationWarning
     >
       <body className="relative flex min-h-full flex-col" suppressHydrationWarning>
-        <Header />
+        <Header links={links} />
         <main className="flex-1">{children}</main>
         <Footer />
       </body>

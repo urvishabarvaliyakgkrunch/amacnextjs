@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { LOGO_URL, NAV_LINKS, SITE } from "../nav-links";
+import { LOGO_URL, SITE, type NavLink } from "../nav-links";
 import { MAX_WIDTH, SIDE_PADDING } from "../layout-classes";
 import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";
@@ -15,6 +15,7 @@ const DESKTOP_ONLY = "hidden min-[1025px]:flex";
 const MOBILE_ONLY = "flex min-[1025px]:hidden";
 
 type HeaderBarProps = {
+  links: NavLink[];
   compact: boolean;
   // Inner pages sit on a dark hero, so the button/icons are white; Home (sky hero) and the sticky bar use dark ones
   light: boolean;
@@ -70,7 +71,7 @@ function SearchOverlay({ open, onClose }: { open: boolean; onClose: () => void }
   );
 }
 
-function HeaderBar({ compact, light, menuOpen, onToggleMenu, onCloseMenu, onOpenSearch }: HeaderBarProps) {
+function HeaderBar({ links, compact, light, menuOpen, onToggleMenu, onCloseMenu, onOpenSearch }: HeaderBarProps) {
   return (
     <div className={`relative ${SIDE_PADDING}`}>
       {/* Sticky bar centres the nav on the viewport (3-col grid); the top state just spreads items apart */}
@@ -114,7 +115,7 @@ function HeaderBar({ compact, light, menuOpen, onToggleMenu, onCloseMenu, onOpen
         </Link>
 
         <div className={DESKTOP_ONLY}>
-          <DesktopNav links={NAV_LINKS} variant={compact ? "plain" : "pill"} />
+          <DesktopNav links={links} variant={compact ? "plain" : "pill"} />
         </div>
 
         <div className="flex items-center gap-[11px] max-[767px]:order-3 max-[767px]:-mr-[5px] min-[1025px]:justify-self-end">
@@ -142,7 +143,7 @@ function HeaderBar({ compact, light, menuOpen, onToggleMenu, onCloseMenu, onOpen
 
       {menuOpen && (
         <div className="absolute inset-x-0 top-full min-[1025px]:hidden">
-          <MobileNav links={NAV_LINKS} onNavigate={onCloseMenu} />
+          <MobileNav links={links} onNavigate={onCloseMenu} />
         </div>
       )}
     </div>
@@ -171,7 +172,7 @@ function TopBar() {
   );
 }
 
-export default function Header() {
+export default function Header({ links }: { links: NavLink[] }) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [isStuck, setIsStuck] = useState(false);
@@ -196,6 +197,7 @@ export default function Header() {
       <header className="absolute inset-x-0 top-0 z-40">
         <TopBar />
         <HeaderBar
+          links={links}
           compact={false}
           light={pathname !== "/"}
           menuOpen={menuOpen && !isStuck}
@@ -212,7 +214,7 @@ export default function Header() {
           isStuck ? "translate-y-0" : "invisible -translate-y-full"
         }`}
       >
-        <HeaderBar compact light={false} menuOpen={menuOpen && isStuck} onToggleMenu={toggleMenu} onCloseMenu={closeMenu} onOpenSearch={openSearch} />
+        <HeaderBar links={links} compact light={false} menuOpen={menuOpen && isStuck} onToggleMenu={toggleMenu} onCloseMenu={closeMenu} onOpenSearch={openSearch} />
       </div>
     </>
   );

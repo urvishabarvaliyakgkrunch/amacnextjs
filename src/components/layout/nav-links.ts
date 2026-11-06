@@ -18,7 +18,7 @@ export const SITE = {
     "Farm supplies, feed and practical advice from our team in Midleton. Serving East Cork and surrounding areas since 2006.",
 };
 
-// Hardcoded per AGENTS.md H6 — matches the live amac.ie menu structure and slugs
+// Fallback only: used when the WP "Header Menu" can't be fetched
 export const NAV_LINKS: NavLink[] = [
   { label: "Home", href: "/" },
   {
