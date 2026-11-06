@@ -21,12 +21,39 @@ function Field({ id, label, required, ...rest }: { id: string; label: string; re
 
 export default function ContactForm() {
   const [pending, setPending] = useState(false);
+  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
 
-  // WPForms endpoint is not confirmed yet (rule P4) — wire the real submit in lib/forms.ts when it is
-  function onSubmit(event: FormEvent<HTMLFormElement>) {
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setPending(true);
-    setTimeout(() => setPending(false), 0);
+    setStatus("idle");
+
+    const form = event.currentTarget;
+    const data = new FormData(form);
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: data.get("name"),
+          email: data.get("email"),
+          subject: data.get("subject"),
+          phone: data.get("phone"),
+          department: data.get("department"),
+          message: data.get("message"),
+        }),
+      });
+
+      if (!response.ok) throw new Error();
+
+      setStatus("success");
+      form.reset();
+    } catch {
+      setStatus("error");
+    } finally {
+      setPending(false);
+    }
   }
 
   return (
@@ -57,6 +84,12 @@ export default function ContactForm() {
       >
         {pending ? "Sending…" : "Submit"}
       </button>
+      {status === "success" ? (
+        <p className="mt-4 text-sm font-semibold text-green-700">Thanks! Your message has been sent.</p>
+      ) : null}
+      {status === "error" ? (
+        <p className="mt-4 text-sm font-semibold text-red-600">Something went wrong. Please try again.</p>
+      ) : null}
     </form>
   );
 }
